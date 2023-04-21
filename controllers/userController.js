@@ -89,4 +89,41 @@ userController.delete = function (req, res) {
     });
 };
 
+// creates 1 user directly
+userController.directCreate = function(req, res, next) {
+  const user = new User({
+    username: req.body.username,
+    password: req.body.password,
+    email: req.body.email,
+    birthDate: req.user.birthDate,
+    age: req.user.age,
+    ticketsAcquired: req.user.ticketsAcquired,
+    points: req.body.points,
+    status: req.body.status
+  });
+  user.save(function(err) {
+    if (err) {
+      next(err)
+    } else {
+      res.json(user)
+    }
+  })
+}
+
+// updates 1 user directly
+userController.directUpdate = function(req, res, next) {
+  User.findByIdAndUpdate(
+    req.params._id,
+    req.body,
+    {new: true},
+    function (err, user) {
+      if (err) {
+        next(err)
+      } else {
+        res.json(user)
+      }
+    }
+  )
+}
+
 module.exports = userController;
