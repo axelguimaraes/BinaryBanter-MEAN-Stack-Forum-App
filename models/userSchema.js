@@ -28,12 +28,14 @@ const userSchema = new mongoose.Schema({
     },
     points: {
         type: Number,
-        required: true
+        required: true,
+        default: 0
     },
     status: {
         type: String,
         enum: ['STANDARD', 'AFFILIATED'],
-        required: true
+        required: true,
+        default: 'STANDARD'
     }
 });
 

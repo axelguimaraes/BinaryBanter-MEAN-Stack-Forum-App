@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Create User</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Create New User</h1>
+        <form action="/users/create" method="post">
+            <table>
+                <tbody>
+                    <tr>
+                        <td>Username</td>
+                        <td><input type="text" name="username" /></td>
+                    </tr>
+                    <tr>
+                        <td>Password</td>
+                        <td><input type="password" name="password" /></td>
+                    </tr>
+                    <tr>
+                        <td>Email</td>
+                        <td><input type="email" name="email" /></td>
+                    </tr>
+                    <tr>
+                    <tr>
+                        <td>Birth Date</td>
+                        <td><input type="date" name="birthDate" /></td>
+                    </tr>
+                    <tr>
+                        <td>Age</td>
+                        <td><input type="text" name="age" /></td>
+                    </tr>
+                    <td colspan="2"><button type="submit">Save</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+    <h3><a href="/users">See all users</a></h3>
+</body>
+
+</html>

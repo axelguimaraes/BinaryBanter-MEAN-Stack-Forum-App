@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>User List</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1>User List</h1>
+      <% if(users.length>0) { %>
+        <table class="list-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Username</th>
+              <th>Email</th>
+              <th>Birth Date</th>
+              <th>Age</th>
+              <th>Tickets Acquired</th>
+              <th>Points</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            <% for(var i=0; i<users.length;i++) { %>
+              <tr>
+                <td> <%=i%> </td>
+                <td> <%= users[i].username%></a></td>
+                <td> <%= users[i].email%></a></td>
+                <td> <%= users[i].birthDate%></a></td>
+                <td> <%= users[i].age%></a></td>
+                <td> <%= users[i].ticketsAcquired%></a></td>
+                <td> <%= users[i].points%></a></td>
+                <td> <%= users[i].status%></a></td>
+                <td><a href="/users/show/<%= users[i]._id%> "> See </td>
+                <td><a href="/users/edit/<%= users[i]._id%> "> Edit </a></td>
+                <td><a href="/users/delete/<%= users[i]._id%> "> Delete </a></td>
+              </tr>
+            <% } %>
+          </tbody>
+        </table>
+      <% } else { %>
+        <div>No users found.</div>
+      <% } %>
+    </div>
+    <h3><a href="/users/create">Create new user</a></h3>
+  </body>
+</html>

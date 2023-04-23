@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
-const Event = require('./eventSchema');
-
+const Gathering = require('./gatheringSchema');
 
 const realEstateSchema = new mongoose.Schema({
     name: {
@@ -16,7 +15,7 @@ const realEstateSchema = new mongoose.Schema({
         required: true
     },
     events: {
-        type: [Event],
+        type: [Gathering.Schema],
         required: false
     }
 });

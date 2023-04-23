@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const RealEstate = require('./realEstateSchema');
 
-const eventSchema = new mongoose.Schema({
+const gatheringSchema = new mongoose.Schema({
     date: {
         type: String,
         required: true
@@ -16,5 +16,5 @@ const eventSchema = new mongoose.Schema({
     }
 });
 
-const Event = mongoose.model('Event', eventSchema);
-module.exports = Event;
+const Gathering = mongoose.model('Gathering', gatheringSchema);
+module.exports = Gathering;
