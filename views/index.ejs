@@ -7,6 +7,13 @@
     <title>Index</title>
 </head>
 <body>
-    Index Page!!
+    <% if (typeof user === 'undefined' || !user) { %>
+        <!-- Render login option if user is not authenticated -->
+        <a href="/auth/login">Login</a>
+      <% } else { %>
+        <!-- Render user name if user is authenticated -->
+        <p>Welcome, <%= user.name %></p>
+        <a href="/users/showUsers">Show users</a>
+      <% } %> 
 </body>
 </html>

@@ -12,6 +12,10 @@ authController.submittedLogin = function(req, res, next) {
 
     mongoUser.findOne({email:emailInput})
         .then(function(user){
+            if (!user) {
+                // User not found
+                return res.send('<script>alert("Incorrect email or password."); window.location.href = "/auth/login";</script>');
+            }
             bcrypt.compare(passwordInput, user.password)
                 .then(function(result){
                     if (result === true) {
@@ -19,7 +23,7 @@ authController.submittedLogin = function(req, res, next) {
                         res.cookie('auth-token', authToken, {maxAge: 82000})
                         res.redirect("/")
                     } else {
-                        res.redirect("/auth/login")
+                        res.send('<script>alert("Incorrect email or password."); window.location.href = "/auth/login";</script>');
                     }
                 })
         })
@@ -56,15 +60,21 @@ authController.createLoginSubmitted = function(req, res, next) {
 };
 
 authController.verifyLoginUser = function(req, res, next) {
-    const authToken = req.cookies['auth-token']
-    if (authToken){
-        jwt.verify(authToken, config.secret, function(err, decoded) {
-            req.userEmail = decoded
-            next()
-        })
+    const authToken = req.cookies['auth-token'];
+    if (authToken) {
+      jwt.verify(authToken, config.secret, function(err, decoded) {
+        if (err) {
+          // Handle token verification error
+          res.redirect('/auth/login');
+        } else {
+          req.userEmail = decoded.email; // Extract the email from the decoded token
+          next();
+        }
+      });
     } else {
-        res.redirect('/auth/login')
+      res.redirect('/auth/login');
     }
-}
+  };
+  
 
 module.exports = authController;
