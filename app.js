@@ -5,7 +5,9 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var authRouter = require('./routes/auth');
+var usersRouter = require('./routes/user');
+var patrimoniesRouter = require("./routes/patrimony")
 
 var app = express();
 
@@ -19,8 +21,12 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// ROUTES
 app.use('/', indexRouter);
+app.use('/auth', authRouter);
 app.use('/users', usersRouter);
+app.use("/patrimonies", patrimoniesRouter)
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -37,5 +43,13 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+// Database connection
+const mongoose = require('mongoose');
+
+mongoose.connect('mongodb+srv://admin:tr3XLIkpeYUyv1Vt@cluster0.qrcemhx.mongodb.net/?retryWrites=true&w=majority')
+.then(() => console.log('Database connected!'))
+.catch(err => console.error('Error connecting to database:', err));
+
 
 module.exports = app;
