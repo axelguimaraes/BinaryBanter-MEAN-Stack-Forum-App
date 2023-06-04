@@ -1,0 +1,13 @@
+<mat-toolbar color="primary">
+  <div class="left-section">
+    <span class="title">Reddit Clone</span>
+  </div>
+  <div class="right-section">
+    <ng-container *ngIf="!isLoggedIn; else userSection">
+      <button mat-raised-button routerLink="/login">Login</button>
+    </ng-container>
+    <ng-template #userSection>
+      <button mat-raised-button routerLink="/user">User</button>
+    </ng-template>
+  </div>
+</mat-toolbar>
