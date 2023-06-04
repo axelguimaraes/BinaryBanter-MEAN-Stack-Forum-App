@@ -10,6 +10,7 @@ var authRouter = require('./routes/auth.routes')
 var postRouter = require('./routes/post.routes')
 var threadRouter = require('./routes/thread.routes')
 var userRouter = require('./routes/user.routes')
+var indexRouter = require('./routes/index.routes')
 
 var app = express();
 
@@ -29,6 +30,7 @@ app.use('/api/auth', authRouter);
 app.use('/api/post', postRouter);
 app.use('/api/thread', threadRouter)
 app.use('/api/user', userRouter)
+app.use('/api', indexRouter)
 
 
 // catch 404 and forward to error handler
