@@ -1,2 +1,16 @@
-<app-header></app-header>
-<router-outlet></router-outlet>
+<mat-toolbar color="primary">
+  <div class="left-section">
+    <span class="title">Reddit Clone</span>
+  </div>
+  <div class="right-section">
+    <ng-container *ngIf="!isLoggedIn; else loginSection">
+      <button mat-raised-button (click)="openDialog()">Login</button>
+    </ng-container>
+    <ng-template #loginSection>
+      <ng-container *ngIf="isLoggedIn">
+        <span class="greeting">Welcome!</span>
+      </ng-container>
+      <button mat-raised-button (click)="logout()">Logout</button>
+    </ng-template>
+  </div>
+</mat-toolbar>

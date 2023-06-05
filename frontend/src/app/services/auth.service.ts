@@ -10,7 +10,8 @@ import { error } from 'console';
 })
 export class AuthService {
   private authenticated: boolean = false;
-  private username: string = '';
+  private email: string = '';
+  private username: string = ''
 
   constructor(private http: HttpClient) {}
 
@@ -22,12 +23,13 @@ export class AuthService {
     return this.username;
   }
 
-  login(username: string, password: string): Observable<any> {
+  login(email: string, password: string): Observable<any> {
     const loginUrl = 'http://localhost:3000/api/auth/login';
 
-    return this.http.post(loginUrl, { username, password }).pipe(
+    return this.http.post(loginUrl, { email, password }).pipe(
       tap((response: any) => {
         this.authenticated = true;
+        this.email = response.email;
         this.username = response.username;
       }),
       catchError((error: any) => {
@@ -37,9 +39,19 @@ export class AuthService {
     );
   }
 
-  logout(): void {
-    this.authenticated = false;
-    this.username = '';
+  logout(): Observable<any> {
+    const logoutUrl = 'http://localhost:3000/api/auth/logout'
+
+    return this.http.post(logoutUrl, localStorage.getItem('currentUser')).pipe(
+      tap((response: any) => {
+        this.authenticated = false;
+        this.email = '';
+      }),
+      catchError((error: any)=>{
+        console.error('Logout error', error)
+        return of(error)
+      })
+    )
   }
 
   register(username: string, password: string): Observable<any> {

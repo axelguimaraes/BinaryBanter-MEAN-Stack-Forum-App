@@ -6,16 +6,18 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
+import { MatDialogModule } from '@angular/material/dialog';
+import {MatFormFieldModule} from '@angular/material/form-field'
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HomeComponent } from './home/home.component';
-import { HeaderComponent } from './header/header.component';
-
+import { DialogComponent } from './dialog/dialog.component';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, HeaderComponent ],
+  declarations: [AppComponent, DialogComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -23,7 +25,11 @@ import { HeaderComponent } from './header/header.component';
     MatToolbarModule,
     MatButtonModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    MatInputModule
   ],
   providers: [AuthService],
   bootstrap: [AppComponent],

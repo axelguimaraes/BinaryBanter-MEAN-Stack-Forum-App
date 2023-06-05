@@ -1,0 +1,23 @@
+.mat-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.left-section {
+  display: flex;
+  align-items: center;
+}
+
+.title {
+  margin-right: 10px;
+}
+
+.right-section {
+  display: flex;
+  align-items: center;
+}
+
+.greeting {
+  margin-right: 10px;
+}
