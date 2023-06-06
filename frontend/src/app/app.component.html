@@ -14,3 +14,7 @@
     </ng-template>
   </div>
 </mat-toolbar>
+
+<button mat-raised-button class="add-post-button" color="primary" *ngIf="isLoggedIn" (click)="openAddPostDialog()">Add post</button>
+
+<app-post-container></app-post-container>

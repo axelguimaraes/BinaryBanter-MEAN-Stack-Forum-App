@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { DialogComponent } from './dialog/dialog.component';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { DialogComponent } from './login-dialog/dialog.component';
 import { AuthService } from './services/auth.service';
+import { AddPostComponent } from './add-post/add-post.component';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +13,7 @@ export class AppComponent {
   title = 'frontend';
   isLoggedIn: boolean = false; // Set this based on authentication status
 
-  constructor(private dialog: MatDialog, private authService: AuthService) {
+  constructor(private dialog: MatDialog, private addPostDialog: MatDialog, private authService: AuthService) {
     this.checkedLoggedInStatus();
   }
 
@@ -27,20 +28,25 @@ export class AppComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('Dialog result:', result);
-      // Update the values of username and isLoggedIn based on the result, if needed
       this.isLoggedIn = result?.isLoggedIn;
     });
   }
 
-  logout(){
-    this.authService.logout()
+  openAddPostDialog() {
+    this.addPostDialog.open(AddPostComponent, {
+      width: '400px',
+    });
+  }
+
+  logout() {
+    this.authService.logout();
     localStorage.removeItem('currentUser');
     this.isLoggedIn = false;
-    window.location.reload()
+    window.location.reload();
   }
 
   checkedLoggedInStatus() {
-    const token = localStorage.getItem('currentUser')
+    const token = localStorage.getItem('currentUser');
     this.isLoggedIn = !!token;
   }
 }
