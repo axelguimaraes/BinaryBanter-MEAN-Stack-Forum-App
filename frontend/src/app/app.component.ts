@@ -39,14 +39,24 @@ export class AppComponent {
   }
 
   logout() {
-    this.authService.logout();
-    localStorage.removeItem('currentUser');
-    this.isLoggedIn = false;
-    window.location.reload();
+    this.authService.logout().subscribe(
+      () => {
+        // Remove the token from the cookie
+        document.cookie = 'auth-token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+        localStorage.removeItem('authToken');
+
+        this.isLoggedIn = false;
+        window.location.reload();
+      },
+      (error: any) => {
+        console.error('Logout error:', error);
+      }
+    );
   }
 
+
   checkedLoggedInStatus() {
-    const token = localStorage.getItem('currentUser');
+    const token = this.authService.getAuthToken();
     this.isLoggedIn = !!token;
   }
 }

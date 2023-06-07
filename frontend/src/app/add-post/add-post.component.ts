@@ -2,6 +2,8 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PostsRestService } from '../services/posts.rest.service';
+import { catchError, tap } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 export interface Post {
   id?: number;
@@ -37,20 +39,27 @@ export class AddPostComponent implements OnInit {
       const newPost = {
         title: this.postForm.get('title')!.value,
         content: this.postForm.get('content')!.value,
+        author: 'Your author value here', // Add the author field with a value
+        //thread: ''
       };
 
-      this.postsRestService.createPost(newPost).subscribe(
-        () => {
-          this.dialogRef.close();
-        },
-        (error) => {
-          console.error('Error creating post:', error);
-        }
-      );
+      this.postsRestService
+        .createPost(newPost)
+        .pipe(
+          tap(() => {
+            this.dialogRef.close();
+          }),
+          catchError((error) => {
+            console.error('Error creating post:', error);
+            return of(null); // Return an observable with a null value to continue the observable chain
+          })
+        )
+        .subscribe();
     } else {
       console.error('Form is not valid');
     }
   }
+
 
   close() {
     this.dialogRef.close();

@@ -44,22 +44,30 @@ export class DialogComponent implements OnInit {
       const email = this.loginForm.get('email')!.value;
       const password = this.loginForm.get('password')!.value;
 
-      this.authService.login(email, password).subscribe((user: any) => {
-        if (user && user.token) {
-          localStorage.setItem('currentUser', JSON.stringify(user));
+      this.authService.login(email, password).subscribe(
+        (response: any) => {
+          if (response && response.token) {
+            // Store the token as a cookie
+            document.cookie = `auth-token=${response.token}; max-age=3600; path=/;`;
+            localStorage.setItem('authToken', response.token);
 
-          const result = {
-            isLoggedIn: true
+            const result = {
+              isLoggedIn: true
+            };
+
+            this.dialogRef.close(result);
+            //window.location.reload()
+          } else {
+            alert('Login error');
           }
-
-          this.dialogRef.close(result);
-          //window.location.reload()
-        } else {
+        },
+        (error: any) => {
           alert('Login error');
         }
-      });
+      );
     }
   }
+
 
   getErrorMessage() {
     const emailFormControl = this.loginForm.get('email');

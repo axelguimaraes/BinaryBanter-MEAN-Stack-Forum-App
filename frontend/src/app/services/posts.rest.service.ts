@@ -15,10 +15,15 @@ export class PostsRestService {
   }
 
   createPost(postData: any): Observable<any> {
-    const authToken = localStorage.getItem('currentUser');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${authToken}`);
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    const options = { headers, withCredentials: true };
 
-    return this.http.post<any>(this.API_URL, postData, { headers });
+    return this.http.post<any>(this.API_URL, postData, options);
+  }
+
+  private getCookie(name: string): string {
+    const cookieValue = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
+    return cookieValue ? cookieValue.pop() || '' : '';
   }
 
 

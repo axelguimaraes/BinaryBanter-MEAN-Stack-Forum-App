@@ -4,6 +4,7 @@ postController = {};
 
 // Get all posts
 postController.getAllPosts = (req, res) => {
+  console.log('Retriving posts')
   PostModel.find()
     .populate("thread", "name")
     .then((post) => {
@@ -13,6 +14,7 @@ postController.getAllPosts = (req, res) => {
       res.status(200).json(post);
     })
     .catch((error) => {
+      console.error(error)
       res.status(500).json({ error: "Internal server error" });
     });
 };
@@ -35,6 +37,7 @@ postController.createPost = (req, res) => {
       res.status(201).json(createdPost);
     })
     .catch((error) => {
+      console.error(error)
       res.status(500).json({ error: "Internal server error" });
     });
 };

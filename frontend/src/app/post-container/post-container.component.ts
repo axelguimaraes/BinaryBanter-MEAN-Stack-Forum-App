@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { PostsRestService } from '../services/posts.rest.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AddPostComponent } from '../add-post/add-post.component';
+import { catchError, tap } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-post-container',
@@ -14,21 +16,25 @@ export class PostContainerComponent implements OnInit {
   constructor(private postsRestService: PostsRestService, private dialog: MatDialog) {}
 
   ngOnInit(): void {
-    this.postsRestService.postCreated.subscribe(() => {
-      this.fetchPosts();
-    });
+    console.log('init');
+    this.fetchPosts();
   }
 
   fetchPosts() {
-    this.postsRestService.getPosts().subscribe(
-      (response) => {
-        this.posts = response;
-      },
-      (error) => {
-        console.error('Error fetching posts', error);
-      }
-    );
+    console.log('Fetching posts')
+    this.postsRestService.getPosts()
+      .pipe(
+        tap((response) => {
+          this.posts = response;
+        }),
+        catchError((error) => {
+          console.error('Error fetching posts', error);
+          return of(null); // Return an observable with a null value to continue the observable chain
+        })
+      )
+      .subscribe();
   }
+
 
   openAddPostDialog() {
     const dialogRef = this.dialog.open(AddPostComponent, {
