@@ -47,6 +47,7 @@ export class AddPostComponent implements OnInit {
         .createPost(newPost)
         .pipe(
           tap(() => {
+            this.postsRestService.emitPostCreated();
             this.dialogRef.close();
           }),
           catchError((error) => {

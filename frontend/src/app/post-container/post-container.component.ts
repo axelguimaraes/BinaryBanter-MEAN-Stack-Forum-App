@@ -16,12 +16,13 @@ export class PostContainerComponent implements OnInit {
   constructor(private postsRestService: PostsRestService, private dialog: MatDialog) {}
 
   ngOnInit(): void {
-    console.log('init');
     this.fetchPosts();
+    this.postsRestService.postCreated.subscribe(() => {
+      this.fetchPosts();
+    });
   }
 
   fetchPosts() {
-    console.log('Fetching posts')
     this.postsRestService.getPosts()
       .pipe(
         tap((response) => {

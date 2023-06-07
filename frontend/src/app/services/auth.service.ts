@@ -4,6 +4,7 @@ import { Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { response } from 'express';
 import { error } from 'console';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +14,7 @@ export class AuthService {
   private email: string = '';
   private username: string = '';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private cookieService: CookieService) {}
 
   isAuthenticated(): boolean {
     return this.authenticated;
@@ -72,7 +73,8 @@ export class AuthService {
   }
 
 
-  getAuthToken(): string | null {
-    return localStorage.getItem('authToken');
+  getAuthTokenFromCookie(): string | null {
+    return this.cookieService.get('auth-token');
   }
+
 }
