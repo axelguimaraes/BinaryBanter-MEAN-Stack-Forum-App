@@ -60,16 +60,17 @@ export class AuthService {
     );
   }
 
-  register(username: string, password: string): Observable<any> {
+  register(payload: any): Observable<any> {
     const registerUrl = 'http://localhost:3000/api/auth/register';
 
-    return this.http.post(registerUrl, { username, password }).pipe(
+    return this.http.post(registerUrl, payload).pipe(
       catchError((error: any) => {
         console.error('Register error', error);
         return of(error);
       })
     );
   }
+
 
   getAuthToken(): string | null {
     return localStorage.getItem('authToken');

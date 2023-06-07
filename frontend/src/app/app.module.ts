@@ -11,6 +11,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -34,6 +36,7 @@ import { AddPostComponent } from './add-post/add-post.component';
     ReactiveFormsModule,
     MatInputModule,
     MatCardModule,
+    MatSnackBarModule
   ],
   providers: [AuthService],
   bootstrap: [AppComponent],

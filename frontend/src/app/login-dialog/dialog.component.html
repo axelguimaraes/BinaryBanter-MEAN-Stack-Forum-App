@@ -1,20 +1,31 @@
-<h1 mat-dialog-title>Login</h1>
+<h1 mat-dialog-title>{{ isRegisterForm ? 'Register' : 'Login' }}</h1>
 <div mat-dialog-content class="dialog-content">
-  <form [formGroup]="loginForm">
+  <form [formGroup]="isRegisterForm ? registerForm : loginForm">
+    <mat-form-field *ngIf="isRegisterForm">
+      <mat-label>Enter your username</mat-label>
+      <input matInput placeholder="Your Username" formControlName="username" required>
+      <mat-error *ngIf="getErrorMessage('username')">{{ getErrorMessage('username') }}</mat-error>
+    </mat-form-field>
+
     <mat-form-field>
       <mat-label>Enter your email</mat-label>
-      <input matInput placeholder="user@example.com" [formControlName]="'email'" required>
-      <mat-error *ngIf="loginForm.controls['email'].invalid">{{getErrorMessage()}}</mat-error>
+      <input matInput placeholder="user@example.com" formControlName="email" required>
+      <mat-error *ngIf="getErrorMessage('email')">{{ getErrorMessage('email') }}</mat-error>
     </mat-form-field>
 
     <mat-form-field>
       <mat-label>Enter your password</mat-label>
-      <input matInput type="password" placeholder="Password" [formControlName]="'password'" required>
-      <mat-error *ngIf="loginForm.controls['password'].invalid">{{getPasswordErrorMessage()}}</mat-error>
+      <input matInput type="password" placeholder="Password" formControlName="password" required>
+      <mat-error *ngIf="getErrorMessage('password')">{{ getErrorMessage('password') }}</mat-error>
     </mat-form-field>
 
     <div class="button-container">
-      <button mat-raised-button color="primary" type="submit" (click)="submitForm()">Submit</button>
+      <button mat-raised-button color="primary" type="submit" (click)="submitForm()">
+        {{ isRegisterForm ? 'Register' : 'Login' }}
+      </button>
     </div>
   </form>
+
+  <button mat-button *ngIf="!isRegisterForm" (click)="switchToRegister()">Register</button>
+  <button mat-button *ngIf="isRegisterForm" (click)="isRegisterForm = false">Back to Login</button>
 </div>

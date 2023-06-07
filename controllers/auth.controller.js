@@ -31,7 +31,7 @@ authController.register = (req, res) => {
         user
           .save()
           .then((createdUser) => {
-            res.status(201).json(createdUser);
+            res.status(200).json({ success: true });
           })
           .catch((error) => {
             res.status(500).json({ error: "Internal server error" });
@@ -42,6 +42,8 @@ authController.register = (req, res) => {
       res.status(500).json({ error: "Internal server error" });
     });
 };
+
+
 
 // User login and generate JWT token
 authController.login = (req, res) => {
