@@ -11,7 +11,8 @@ import { AddPostComponent } from './add-post/add-post.component';
 })
 export class AppComponent {
   title = 'frontend';
-  isLoggedIn: boolean = false; // Set this based on authentication status
+  isLoggedIn: boolean = false;
+  username: string = ''
 
   constructor(
     private dialog: MatDialog,
@@ -19,6 +20,10 @@ export class AppComponent {
     private authService: AuthService
   ) {
     this.checkedLoggedInStatus();
+    const storedUsername = localStorage.getItem('username');
+    if (storedUsername) {
+      this.username = storedUsername;
+    }
   }
 
   openDialog() {
@@ -52,6 +57,7 @@ export class AppComponent {
         document.cookie =
           'auth-token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
         localStorage.removeItem('authToken');
+        localStorage.removeItem('username');
 
         this.isLoggedIn = false;
         window.location.reload();

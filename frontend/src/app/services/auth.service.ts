@@ -29,15 +29,17 @@ export class AuthService {
 
     return this.http.post(loginUrl, { email, password }).pipe(
       tap((response: any) => {
-        // Assuming the server response includes an authentication token
+        // Assuming the server response includes an authentication token and username
         const authToken = response.token;
+        const username = response.username;
 
-        // Save the authentication token in local storage
+        // Save the authentication token and username in local storage
         localStorage.setItem('authToken', authToken);
+        localStorage.setItem('username', username);
 
         this.authenticated = true;
         this.email = response.email;
-        this.username = response.username;
+        this.username = username;
       }),
       catchError((error: any) => {
         console.error('Login error', error);
@@ -45,6 +47,7 @@ export class AuthService {
       })
     );
   }
+
 
   logout(): Observable<any> {
     const logoutUrl = 'http://localhost:3000/api/auth/logout';

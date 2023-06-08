@@ -8,7 +8,7 @@
     </ng-container>
     <ng-template #loginSection>
       <ng-container *ngIf="isLoggedIn">
-        <span class="greeting">Welcome!</span>
+        <span class="greeting">Hello {{ username }}!</span>
       </ng-container>
       <button mat-raised-button (click)="logout()">Logout</button>
     </ng-template>

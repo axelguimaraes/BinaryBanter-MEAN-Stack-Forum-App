@@ -84,7 +84,8 @@ authController.login = (req, res) => {
               maxAge: 3600000,
               httpOnly: true,
             });
-            res.status(200).json({ token });
+            
+            res.status(200).json({ token, username: user.username }); // Include the username in the response
           })
           .catch((error) => {
             res.status(500).json({ error: "Internal server error" });
@@ -95,6 +96,7 @@ authController.login = (req, res) => {
       res.status(500).json({ error: "Internal server error" });
     });
 };
+
 
 // Check if user is authenticated
 authController.isAuthenticated = (req, res, next) => {

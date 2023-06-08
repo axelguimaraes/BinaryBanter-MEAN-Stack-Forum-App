@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PostsRestService } from '../services/posts.rest.service';
 import { catchError, tap } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { AuthService } from '../services/auth.service';
 
 export interface Post {
   id?: number;
@@ -24,7 +25,8 @@ export class AddPostComponent implements OnInit {
     private formBuilder: FormBuilder,
     private dialogRef: MatDialogRef<AddPostComponent>,
     @Inject(MAT_DIALOG_DATA) private posts: Post[],
-    private postsRestService: PostsRestService
+    private postsRestService: PostsRestService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -39,8 +41,7 @@ export class AddPostComponent implements OnInit {
       const newPost = {
         title: this.postForm.get('title')!.value,
         content: this.postForm.get('content')!.value,
-        author: 'Your author value here', // Add the author field with a value
-        //thread: ''
+        author: this.authService.getAuthTokenFromCookie(), // Use the authentication token as the author value
       };
 
       this.postsRestService

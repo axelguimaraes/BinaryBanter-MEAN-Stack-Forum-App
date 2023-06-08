@@ -1,4 +1,6 @@
 const PostModel = require("../models/post.model");
+const jwt = require('jsonwebtoken');
+const config = require("../jwt/config");
 
 postController = {};
 
@@ -24,11 +26,22 @@ postController.createPost = (req, res) => {
   const { title, content, thread } = req.body;
   const userId = req.userId;
 
+  // Verify and decode the author token
+  const authorToken = req.body.author;
+  let author;
+  try {
+    const decodedToken = jwt.verify(authorToken, config.secret);
+    author = decodedToken.userId;
+  } catch (error) {
+    console.error('Invalid token:', error);
+    return res.status(401).json({ error: 'Invalid token' });
+  }
+
   const post = new PostModel({
     title,
     content,
     thread,
-    user: userId,
+    author,
   });
 
   post
@@ -37,8 +50,8 @@ postController.createPost = (req, res) => {
       res.status(201).json(createdPost);
     })
     .catch((error) => {
-      console.error(error)
-      res.status(500).json({ error: "Internal server error" });
+      console.error(error);
+      res.status(500).json({ error: 'Internal server error' });
     });
 };
 
