@@ -1,0 +1,36 @@
+.hide-other-components {
+  display: none;
+}
+
+.thread-details {
+  margin: 16px 120px;
+}
+
+.thread-card-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.thread-author {
+  font-size: 0.8rem;
+  color: rgba(0, 0, 0, 0.54);
+  margin-left: 10px;
+}
+
+.back-button-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+  margin-top: 16px;
+  margin-left: 120px;
+}
+
+.back-button {
+  margin-right: 8px;
+}
+
+.go-back-text {
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.54);
+}

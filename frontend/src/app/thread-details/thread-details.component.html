@@ -1,1 +1,20 @@
-<p>thread-details works!</p>
+<div class="back-button-container">
+  <button mat-icon-button color="primary" (click)="goBack()" class="back-button">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+  <span class="go-back-text">Go back</span>
+</div>
+
+<mat-card *ngIf="thread" class="thread-details">
+  <mat-card-header>
+    <div class="thread-card-title">
+      <mat-card-title>{{ thread.name }}</mat-card-title>
+      <div class="thread-author">by {{ thread.author }}</div>
+    </div>
+  </mat-card-header>
+  <mat-card-content>
+    <p>{{ thread.description }}</p>
+    <p>Created At: {{ thread.createdAt | date }}</p>
+    <!-- Display other thread details as needed -->
+  </mat-card-content>
+</mat-card>

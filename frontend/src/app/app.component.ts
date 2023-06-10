@@ -4,7 +4,8 @@ import { DialogComponent } from './login-dialog/dialog.component';
 import { AuthService } from './services/auth.service';
 import { AddThreadDialogComponent } from './add-thread-dialog/add-thread-dialog.component';
 import { Observable } from 'rxjs';
-import { of, BehaviorSubject  } from 'rxjs';
+import { of, BehaviorSubject } from 'rxjs';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -15,10 +16,13 @@ export class AppComponent implements OnInit {
   title = 'frontend';
   isLoggedIn: boolean = false;
   username$: BehaviorSubject<string> = new BehaviorSubject<string>('');
+  showAddThreadButton: boolean = false;
 
   constructor(
     private dialog: MatDialog,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router,
+    private route: ActivatedRoute
   ) {
     this.checkedLoggedInStatus();
     const storedUsername = localStorage.getItem('username');
@@ -28,7 +32,16 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    //this.username$ = of(this.authService.getUserName());
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        // Check if the current route is the home route
+        const isHomeRoute =
+          this.route.snapshot.firstChild?.routeConfig?.path === '';
+
+        // Hide the "Add Thread" button if not on the home route
+        this.showAddThreadButton = isHomeRoute;
+      }
+    });
   }
 
   openLoginDialog() {
@@ -77,7 +90,6 @@ export class AppComponent implements OnInit {
     );
   }
 
-
   checkedLoggedInStatus() {
     const token = this.authService.getAuthTokenFromCookie();
     this.isLoggedIn = !!token;
@@ -86,7 +98,7 @@ export class AppComponent implements OnInit {
   openAddThreadDialog(): void {
     const dialogRef = this.dialog.open(AddThreadDialogComponent, {
       width: '400px',
-      height: '400px'
+      height: '400px',
       // Set the width of the dialog as per your requirements
       // You can pass additional data to the dialog using the `data` property
       // For example: data: { userId: '123' }

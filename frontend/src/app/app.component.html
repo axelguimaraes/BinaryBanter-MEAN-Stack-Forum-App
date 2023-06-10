@@ -17,8 +17,8 @@
   </div>
 </mat-toolbar>
 
-<div class="add-thread-button-container" *ngIf="isLoggedIn">
+<div class="add-thread-button-container" *ngIf="isLoggedIn && showAddThreadButton">
   <button mat-raised-button color="primary" class="add-thread-button" (click)="openAddThreadDialog()">Add Thread</button>
 </div>
 
-<app-thread-container></app-thread-container>
+<router-outlet></router-outlet>

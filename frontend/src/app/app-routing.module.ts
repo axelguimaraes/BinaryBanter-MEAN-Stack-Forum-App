@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ThreadDetailsComponent } from './thread-details/thread-details.component';
+import { ThreadContainerComponent } from './thread-container/thread-container.component';
 
 const routes: Routes = [
-  //{ path: '', component: HomeComponent }
-
+  { path: '', component: ThreadContainerComponent },
+  { path: 'thread/:id', component: ThreadDetailsComponent }
 ];
 
 @NgModule({
