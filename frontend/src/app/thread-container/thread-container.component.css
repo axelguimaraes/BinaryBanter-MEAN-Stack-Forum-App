@@ -1,0 +1,18 @@
+.thread-container {
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+.no-threads-message {
+  margin-top: 16px;
+  margin-bottom: 16px;
+  margin-left: 16px;
+}
+
+.spacer {
+  margin: 16px; /* Adjust the value to your desired spacing */
+}
+
+.thread-meta {
+  margin: 16px;
+}

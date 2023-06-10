@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { DialogComponent } from './login-dialog/dialog.component';
 import { AuthService } from './services/auth.service';
-import { AddPostComponent } from './add-post/add-post.component';
+import { AddThreadDialogComponent } from './add-thread-dialog/add-thread-dialog.component';
 
 @Component({
   selector: 'app-root',
@@ -12,11 +12,10 @@ import { AddPostComponent } from './add-post/add-post.component';
 export class AppComponent {
   title = 'frontend';
   isLoggedIn: boolean = false;
-  username: string = ''
+  username: string = '';
 
   constructor(
     private dialog: MatDialog,
-    private addPostDialog: MatDialog,
     private authService: AuthService
   ) {
     this.checkedLoggedInStatus();
@@ -26,7 +25,7 @@ export class AppComponent {
     }
   }
 
-  openDialog() {
+  openLoginDialog() {
     const dialogRef: MatDialogRef<DialogComponent> = this.dialog.open(
       DialogComponent,
       {
@@ -41,12 +40,6 @@ export class AppComponent {
     dialogRef.afterClosed().subscribe((result) => {
       console.log('Dialog result:', result);
       this.isLoggedIn = result?.isLoggedIn;
-    });
-  }
-
-  openAddPostDialog() {
-    this.addPostDialog.open(AddPostComponent, {
-      width: '400px',
     });
   }
 
@@ -71,5 +64,20 @@ export class AppComponent {
   checkedLoggedInStatus() {
     const token = this.authService.getAuthTokenFromCookie();
     this.isLoggedIn = !!token;
+  }
+
+  openAddThreadDialog(): void {
+    const dialogRef = this.dialog.open(AddThreadDialogComponent, {
+      width: '400px',
+      // Set the width of the dialog as per your requirements
+      // You can pass additional data to the dialog using the `data` property
+      // For example: data: { userId: '123' }
+    });
+
+    // Subscribe to the dialog's afterClosed() event to get the result when the dialog is closed
+    dialogRef.afterClosed().subscribe((result: any) => {
+      // Handle the result or perform any necessary actions
+      console.log('Dialog closed with result:', result);
+    });
   }
 }

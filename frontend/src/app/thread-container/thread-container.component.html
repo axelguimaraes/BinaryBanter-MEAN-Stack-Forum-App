@@ -1,0 +1,22 @@
+<div class="thread-container">
+  <mat-card *ngFor="let thread of threads" class="thread-card spacer">
+    <mat-card-header>
+      <mat-card-title>{{ thread.name }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p>{{ thread.description }}</p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button color="primary" >View Thread</button>
+    </mat-card-actions>
+    <mat-card-footer>
+      <div class="thread-meta">
+        <mat-icon>forum</mat-icon> {{ thread.posts.length }}
+        <span *ngIf="thread.posts.length === 1">post</span>
+        <span *ngIf="thread.posts.length !== 1">posts</span>
+      </div>
+    </mat-card-footer>
+  </mat-card>
+  <div class="spacer"></div> <!-- Add a spacer element -->
+  <p *ngIf="threads.length === 0" class="no-threads-message">No threads available.</p>
+</div>

@@ -20,7 +20,7 @@ threadsController.createThread = (req, res) => {
   const thread = new ThreadModel({
     name,
     description,
-    createdBy: req.user._id,
+    createdBy: req.userId,
   });
 
   thread
@@ -29,6 +29,7 @@ threadsController.createThread = (req, res) => {
       res.status(201).json(createdThread);
     })
     .catch((error) => {
+      console.log(error)
       res.status(500).json({ error: "Internal server error" });
     });
 };

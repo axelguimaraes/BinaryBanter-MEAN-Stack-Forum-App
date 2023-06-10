@@ -22,6 +22,10 @@
   margin-right: 10px;
 }
 
-.add-post-button {
-  margin: 32px
+.add-thread-button-container {
+  margin-top: 16px;
+}
+
+.add-thread-button {
+  margin-left: 16px;
 }

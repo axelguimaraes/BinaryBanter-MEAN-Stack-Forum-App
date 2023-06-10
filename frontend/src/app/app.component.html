@@ -4,17 +4,19 @@
   </div>
   <div class="right-section">
     <ng-container *ngIf="!isLoggedIn; else loginSection">
-      <button mat-raised-button (click)="openDialog()">Login</button>
+      <button mat-raised-button (click)="openLoginDialog()">Login</button>
     </ng-container>
     <ng-template #loginSection>
       <ng-container *ngIf="isLoggedIn">
         <span class="greeting">Hello {{ username }}!</span>
+        <button mat-raised-button (click)="logout()">Logout</button>
       </ng-container>
-      <button mat-raised-button (click)="logout()">Logout</button>
     </ng-template>
   </div>
 </mat-toolbar>
 
-<button mat-raised-button class="add-post-button" color="primary" *ngIf="isLoggedIn" (click)="openAddPostDialog()">Add post</button>
+<div class="add-thread-button-container" *ngIf="isLoggedIn">
+  <button mat-raised-button color="primary" class="add-thread-button" (click)="openAddThreadDialog()">Add Thread</button>
+</div>
 
-<app-post-container></app-post-container>
+<app-thread-container></app-thread-container>
