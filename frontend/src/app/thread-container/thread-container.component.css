@@ -14,17 +14,34 @@
 }
 
 .thread-meta {
+  display: flex;
+  align-items: center;
   margin: 16px;
 }
 
 .thread-header {
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
 }
 
 .thread-author {
   font-size: 0.8rem;
   color: rgba(0, 0, 0, 0.54); /* Set the color to a dimmer shade */
-  margin-left: 0.5rem; /* Add a left margin for spacing */
+  margin-left: 10px;
+}
+
+.thread-title-author {
+  display: flex;
+  align-items: center;
+}
+
+.thread-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.thread-meta-icon {
+  margin-right: 5px;
 }

@@ -18,9 +18,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DialogComponent } from './login-dialog/dialog.component';
 import { ThreadContainerComponent } from './thread-container/thread-container.component';
 import { AddThreadDialogComponent } from './add-thread-dialog/add-thread-dialog.component';
+import { ThreadDetailsComponent } from './thread-details/thread-details.component';
 
 @NgModule({
-  declarations: [AppComponent, DialogComponent, ThreadContainerComponent, AddThreadDialogComponent],
+  declarations: [AppComponent, DialogComponent, ThreadContainerComponent, AddThreadDialogComponent, ThreadDetailsComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

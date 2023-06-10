@@ -1,8 +1,10 @@
 <div class="thread-container">
   <mat-card *ngFor="let thread of threads" class="thread-card spacer">
     <mat-card-header>
-      <mat-card-title>{{ thread.name }}</mat-card-title>
-      <div class="thread-author">by {{ thread.author }}</div>
+      <div class="thread-title-author">
+        <mat-card-title>{{ thread.name }}</mat-card-title>
+        <div class="thread-author">by {{ thread.author }}</div>
+      </div>
     </mat-card-header>
     <mat-card-content>
       <p>{{ thread.description }}</p>
@@ -12,7 +14,7 @@
     </mat-card-actions>
     <mat-card-footer>
       <div class="thread-meta">
-        <mat-icon>forum</mat-icon> {{ thread.posts.length }}
+        <mat-icon class="thread-meta-icon">forum</mat-icon> {{ thread.posts.length }}
         <span *ngIf="thread.posts.length === 1">post</span>
         <span *ngIf="thread.posts.length !== 1">posts</span>
       </div>
