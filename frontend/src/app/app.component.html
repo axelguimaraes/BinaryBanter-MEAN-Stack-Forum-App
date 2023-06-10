@@ -1,6 +1,6 @@
 <mat-toolbar color="primary">
   <div class="left-section">
-    <span class="title">Reddit Clone</span>
+    <span class="title">binary_banter</span>
   </div>
   <div class="right-section">
     <ng-container *ngIf="!isLoggedIn; else loginSection">
@@ -8,7 +8,9 @@
     </ng-container>
     <ng-template #loginSection>
       <ng-container *ngIf="isLoggedIn">
-        <span class="greeting">Hello {{ username }}!</span>
+        <div *ngIf="(username$ | async) as username" class="welcome-container">
+          <p class="greeting">Hello, {{ username }}!</p>
+        </div>
         <button mat-raised-button (click)="logout()">Logout</button>
       </ng-container>
     </ng-template>

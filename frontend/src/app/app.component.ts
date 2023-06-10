@@ -1,18 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { DialogComponent } from './login-dialog/dialog.component';
 import { AuthService } from './services/auth.service';
 import { AddThreadDialogComponent } from './add-thread-dialog/add-thread-dialog.component';
+import { Observable } from 'rxjs';
+import { of, BehaviorSubject  } from 'rxjs';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'frontend';
   isLoggedIn: boolean = false;
-  username: string = '';
+  username$: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
   constructor(
     private dialog: MatDialog,
@@ -21,8 +23,12 @@ export class AppComponent {
     this.checkedLoggedInStatus();
     const storedUsername = localStorage.getItem('username');
     if (storedUsername) {
-      this.username = storedUsername;
+      this.username$.next(storedUsername);
     }
+  }
+
+  ngOnInit(): void {
+    //this.username$ = of(this.authService.getUserName());
   }
 
   openLoginDialog() {
@@ -40,6 +46,15 @@ export class AppComponent {
     dialogRef.afterClosed().subscribe((result) => {
       console.log('Dialog result:', result);
       this.isLoggedIn = result?.isLoggedIn;
+
+      if (this.isLoggedIn) {
+        const storedUsername = localStorage.getItem('username');
+        if (storedUsername) {
+          this.username$.next(storedUsername);
+        }
+      } else {
+        this.username$.next('');
+      }
     });
   }
 
@@ -53,6 +68,7 @@ export class AppComponent {
         localStorage.removeItem('username');
 
         this.isLoggedIn = false;
+        this.username$.next('');
         window.location.reload();
       },
       (error: any) => {
@@ -60,6 +76,7 @@ export class AppComponent {
       }
     );
   }
+
 
   checkedLoggedInStatus() {
     const token = this.authService.getAuthTokenFromCookie();
@@ -69,6 +86,7 @@ export class AppComponent {
   openAddThreadDialog(): void {
     const dialogRef = this.dialog.open(AddThreadDialogComponent, {
       width: '400px',
+      height: '400px'
       // Set the width of the dialog as per your requirements
       // You can pass additional data to the dialog using the `data` property
       // For example: data: { userId: '123' }

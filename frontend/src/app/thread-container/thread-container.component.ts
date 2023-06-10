@@ -14,9 +14,9 @@ export class ThreadContainerComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchThreads();
-    this.threadService.threadCreated.subscribe(()=>{
+    this.threadService.threadCreated.subscribe(() => {
       this.fetchThreads();
-    })
+    });
   }
 
   fetchThreads(): void {

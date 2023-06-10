@@ -16,3 +16,15 @@
 .thread-meta {
   margin: 16px;
 }
+
+.thread-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.thread-author {
+  font-size: 0.8rem;
+  color: rgba(0, 0, 0, 0.54); /* Set the color to a dimmer shade */
+  margin-left: 0.5rem; /* Add a left margin for spacing */
+}

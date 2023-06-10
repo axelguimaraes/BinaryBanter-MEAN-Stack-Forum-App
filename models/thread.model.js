@@ -8,6 +8,7 @@ const threadSchema = new mongoose.Schema({
     ref: "User",
     required: true,
   },
+  author: { type: String, required: true},
   posts: [{ type: mongoose.Schema.Types.ObjectId, ref: "Post" }],
   createdAt: { type: Date, default: Date.now },
 });

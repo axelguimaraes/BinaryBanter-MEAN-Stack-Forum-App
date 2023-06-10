@@ -5,12 +5,12 @@ const authController = require('../controllers/auth.controller');
 const router = express.Router();
 
 // Get user profile
-router.get('/profile', authController.isAuthenticated, usersController.getProfile);
+router.get('/:id', authController.isAuthenticated, usersController.getProfile);
 
 // Update user profile
-router.put('/profile', authController.isAuthenticated, usersController.updateProfile);
+router.put('/:id', authController.isAuthenticated, usersController.updateProfile);
 
 // Delete user account
-router.delete('/account', authController.isAuthenticated, usersController.deleteAccount);
+router.delete('/:id', authController.isAuthenticated, usersController.deleteAccount);
 
 module.exports = router;

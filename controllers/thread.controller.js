@@ -15,12 +15,13 @@ threadsController.getAllThreads = (req, res) => {
 
 // Create a new thread
 threadsController.createThread = (req, res) => {
-  const { name, description } = req.body;
+  const { name, description, author } = req.body;
 
   const thread = new ThreadModel({
     name,
     description,
     createdBy: req.userId,
+    author,
   });
 
   thread
