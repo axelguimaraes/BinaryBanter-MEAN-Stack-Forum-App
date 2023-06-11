@@ -3,6 +3,10 @@
     <mat-icon>arrow_back</mat-icon>
   </button>
   <span class="go-back-text">Go back</span>
+
+  <button mat-raised-button color="primary" class="add-post-button" (click)="addPost()">
+    Add Post
+  </button>
 </div>
 
 <mat-card *ngIf="thread" class="thread-details">

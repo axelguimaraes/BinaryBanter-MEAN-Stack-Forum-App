@@ -1,0 +1,16 @@
+<h2 mat-dialog-title>Add Post</h2>
+<mat-dialog-content>
+  <form [formGroup]="threadForm" (ngSubmit)="onSubmit()">
+    <mat-form-field>
+      <input matInput formControlName="title" placeholder="Post Title" required>
+    </mat-form-field>
+    <mat-form-field>
+      <textarea matInput formControlName="content" placeholder="Post Content" rows="5" required></textarea>
+    </mat-form-field>
+    <input type="file" (change)="onFileSelected($event)" formControlName="file">
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close color="primary">Cancel</button>
+  <button mat-button type="submit" color="primary" [disabled]="threadForm.invalid" (click)="onSubmit()">Add</button>
+</mat-dialog-actions>

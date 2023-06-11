@@ -2,12 +2,55 @@ const PostModel = require("../models/post.model");
 const jwt = require('jsonwebtoken');
 const config = require("../jwt/config");
 
-postController = {};
+const postController = {};
 
 // Get all posts
 postController.getAllPosts = (req, res) => {
-  console.log('Retriving posts')
+  console.log('Retrieving posts');
   PostModel.find()
+    .populate("thread", "name")
+    .then((posts) => {
+      if (!posts || posts.length === 0) {
+        return res.status(404).json({ error: "No posts found" });
+      }
+      res.status(200).json(posts);
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).json({ error: "Internal server error" });
+    });
+};
+
+// Create a new post
+postController.createPost = (req, res) => {
+  const { title, content, thread, author, image } = req.body;
+
+  const post = new PostModel({
+    title,
+    content,
+    thread,
+    createdBy: req.userId,
+    author,
+    image: image || null,
+  });
+
+  console.log(post)
+  post
+    .save()
+    .then((createdPost) => {
+      res.status(201).json(createdPost);
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).json({ error: "Internal server error" });
+    });
+};
+
+// Get a specific post by ID
+postController.getPostById = (req, res) => {
+  const postId = req.params.postId;
+
+  PostModel.findById(postId)
     .populate("thread", "name")
     .then((post) => {
       if (!post) {
@@ -16,51 +59,21 @@ postController.getAllPosts = (req, res) => {
       res.status(200).json(post);
     })
     .catch((error) => {
-      console.error(error)
-      res.status(500).json({ error: "Internal server error" });
-    });
-};
-
-// Create a new post
-postController.createPost = (req, res) => {
-  const { title, content, thread } = req.body;
-  const userId = req.userId;
-
-  // Verify and decode the author token
-  const authorToken = req.body.author;
-  let author;
-  try {
-    const decodedToken = jwt.verify(authorToken, config.secret);
-    author = decodedToken.userId;
-  } catch (error) {
-    console.error('Invalid token:', error);
-    return res.status(401).json({ error: 'Invalid token' });
-  }
-
-  const post = new PostModel({
-    title,
-    content,
-    thread,
-    author,
-  });
-
-  post
-    .save()
-    .then((createdPost) => {
-      res.status(201).json(createdPost);
-    })
-    .catch((error) => {
       console.error(error);
-      res.status(500).json({ error: 'Internal server error' });
+      res.status(500).json({ error: "Internal server error" });
     });
 };
 
 // Update a specific post by ID
 postController.updatePost = (req, res) => {
   const postId = req.params.id;
-  const { title, content, thread } = req.body;
+  const { title, content, thread, image } = req.body;
 
-  PostModel.findByIdAndUpdate(postId, { title, content, thread }, { new: true })
+  PostModel.findByIdAndUpdate(
+    postId,
+    { title, content, thread, image },
+    { new: true }
+  )
     .then((updatedPost) => {
       if (!updatedPost) {
         return res.status(404).json({ error: "Post not found" });
@@ -68,6 +81,7 @@ postController.updatePost = (req, res) => {
       res.status(200).json(updatedPost);
     })
     .catch((error) => {
+      console.error(error);
       res.status(500).json({ error: "Internal server error" });
     });
 };
@@ -84,8 +98,9 @@ postController.deletePost = (req, res) => {
       res.status(200).json({ message: "Post deleted successfully" });
     })
     .catch((error) => {
+      console.error(error);
       res.status(500).json({ error: "Internal server error" });
     });
 };
 
-module.exports = postController
+module.exports = postController;

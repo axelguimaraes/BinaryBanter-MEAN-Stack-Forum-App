@@ -19,9 +19,10 @@ import { DialogComponent } from './login-dialog/dialog.component';
 import { ThreadContainerComponent } from './thread-container/thread-container.component';
 import { AddThreadDialogComponent } from './add-thread-dialog/add-thread-dialog.component';
 import { ThreadDetailsComponent } from './thread-details/thread-details.component';
+import { AddPostDialogComponent } from './add-post-dialog/add-post-dialog.component';
 
 @NgModule({
-  declarations: [AppComponent, DialogComponent, ThreadContainerComponent, AddThreadDialogComponent, ThreadDetailsComponent],
+  declarations: [AppComponent, DialogComponent, ThreadContainerComponent, AddThreadDialogComponent, ThreadDetailsComponent, AddPostDialogComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

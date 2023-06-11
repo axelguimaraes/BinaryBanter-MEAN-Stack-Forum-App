@@ -26,11 +26,25 @@
   margin-left: 120px;
 }
 
+.go-back-text {
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.54);
+}
+
+
+.button-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+  margin-top: 16px;
+  margin-left: 120px;
+}
+
 .back-button {
   margin-right: 8px;
 }
 
-.go-back-text {
-  font-size: 14px;
-  color: rgba(0, 0, 0, 0.54);
+.add-post-button {
+  margin-left: auto;
+  margin-right: 120px;
 }
