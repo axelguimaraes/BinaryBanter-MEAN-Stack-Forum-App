@@ -4,6 +4,7 @@
 
 .thread-details {
   margin: 16px 120px;
+  background-color: #c9c9c9;
 }
 
 .thread-card-title {
@@ -47,4 +48,13 @@
 .add-post-button {
   margin-left: auto;
   margin-right: 120px;
+}
+
+.no-posts-card {
+  margin: 16px 120px;
+}
+
+
+.post-card {
+  margin: 16px 120px;
 }

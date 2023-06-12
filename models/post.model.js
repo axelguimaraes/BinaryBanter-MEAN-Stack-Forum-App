@@ -3,16 +3,12 @@ const mongoose = require('mongoose')
 const postSchema = new mongoose.Schema({
   title: { type: String, required: true },
   content: { type: String, required: true },
-  author: { 
-    type: mongoose.Schema.Types.ObjectId,
-    required: true
-  },
+  author: { type: String, required: true },
   thread: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Thread",
     //required: true,
   },
-  image: { type: String }, // New field for the image URL (non-required)
   createdAt: { type: Date, default: Date.now },
   createdBy: {
     type: mongoose.Schema.Types.ObjectId,
@@ -21,3 +17,6 @@ const postSchema = new mongoose.Schema({
   },
   updatedAt: { type: Date, default: Date.now },
 });
+
+const PostModel = mongoose.model("Post", postSchema);
+module.exports = PostModel;

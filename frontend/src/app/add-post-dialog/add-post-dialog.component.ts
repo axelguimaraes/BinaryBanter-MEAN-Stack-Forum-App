@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { PostsService } from '../services/posts.service';
 import { AuthService } from '../services/auth.service';
@@ -11,7 +11,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class AddPostDialogComponent implements OnInit {
   threadForm!: FormGroup;
-  selectedFile: File | null = null;
   author: string = '';
 
   constructor(
@@ -32,7 +31,6 @@ export class AddPostDialogComponent implements OnInit {
       title: ['', Validators.required],
       content: ['', Validators.required],
       author: [{ value: this.author, disabled: true }, Validators.required],
-      file: ['']
     });
   }
 
@@ -43,10 +41,6 @@ export class AddPostDialogComponent implements OnInit {
     });
   }
 
-  onFileSelected(event: any): void {
-    this.selectedFile = event.target.files[0];
-  }
-
   onSubmit() {
     if (this.threadForm.invalid) {
       console.log('Invalid form');
@@ -55,18 +49,14 @@ export class AddPostDialogComponent implements OnInit {
 
     const threadId = this.data.threadId;
     const author = this.author;
-    const postData = this.threadForm.value;
 
-    const formData = new FormData();
-    formData.append('title', postData.title);
-    formData.append('content', postData.content);
-    if (this.selectedFile) {
-      formData.append('file', this.selectedFile);
-    }
-    formData.append('thread', threadId);
-    formData.append('author', author);
+    const postData = {
+      ...this.threadForm.value,
+      author: author,
+      thread: threadId
+    };
 
-    this.postsService.createPost(threadId, formData).subscribe(
+    this.postsService.createPost(postData).subscribe(
       (response) => {
         console.log('Post created:', response);
         this.postsService.emitPostCreated();

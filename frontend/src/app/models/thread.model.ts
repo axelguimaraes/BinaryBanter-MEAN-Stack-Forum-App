@@ -2,8 +2,8 @@ export interface Thread {
   _id: string;
   name: string;
   description: string;
-  createdBy: string; // Assuming it represents the user ID
+  createdBy: string;
   author: string;
-  posts: string[]; // Assuming it represents an array of post IDs
+  posts: string[];
   createdAt: Date;
 }

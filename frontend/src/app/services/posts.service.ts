@@ -6,30 +6,30 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class PostsService {
-  private readonly API_URL = 'http://localhost:3000/api/thread';
+  private readonly API_URL = 'http://localhost:3000/api/post/';
 
   constructor(private http: HttpClient) { }
 
-  getPosts(threadId: string): Observable<any> {
-    const url = `${this.API_URL}/${threadId}/post`;
+  getPosts(): Observable<any> {
+    const url = `${this.API_URL}`;
     return this.http.get<any>(url, { withCredentials: true }); // Include 'withCredentials' to send cookies
   }
 
-  createPost(threadId: string, postData: any): Observable<any> {
-    const url = `${this.API_URL}/${threadId}/post`;
+  createPost(postData: any): Observable<any> {
+    const url = `${this.API_URL}`;
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
     const options = { headers, withCredentials: true };
 
     return this.http.post<any>(url, postData, options);
   }
 
-  updatePost(threadId: string, postId: string, postData: any): Observable<any> {
-    const url = `${this.API_URL}/${threadId}/post/${postId}`;
+  updatePost(postId: string, postData: any): Observable<any> {
+    const url = `${this.API_URL}/${postId}`;
     return this.http.put<any>(url, postData, { withCredentials: true }); // Include 'withCredentials' to send cookies
   }
 
-  deletePost(threadId: string, postId: string): Observable<any> {
-    const url = `${this.API_URL}/${threadId}/post/${postId}`;
+  deletePost(postId: string): Observable<any> {
+    const url = `${this.API_URL}/${postId}`;
     return this.http.delete<any>(url, { withCredentials: true }); // Include 'withCredentials' to send cookies
   }
 
