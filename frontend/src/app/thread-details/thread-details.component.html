@@ -4,7 +4,11 @@
   </button>
   <span class="go-back-text">Go back</span>
 
-  <button mat-raised-button color="primary" class="add-post-button"  (click)="addPost()">
+  <button mat-raised-button *ngIf="thread.createdBy === loggedInUserId" color="warn" class="delete-thread-button"  (click)="deleteThread()">
+     Delete Thread
+  </button>
+
+  <button mat-raised-button color="primary" class="add-post-button" *ngIf="loggedInUserId"  (click)="addPost()">
     Add Post
   </button>
 </div>
@@ -24,12 +28,27 @@
   </mat-card-content>
 </mat-card>
 
+
+
 <ng-container *ngIf="posts.length > 0; else noPosts">
+  <div class="posts-sentence">
+    <p>Posts</p>
+  </div>
   <mat-card class="post-card" *ngFor="let post of posts">
     <mat-card-header>
       <div class="post-card-title">
         <mat-card-title>{{ post.title }}</mat-card-title>
         <div class="post-author">by {{ post.author }}</div>
+      </div>
+      <div class="post-actions" *ngIf="post.createdBy === loggedInUserId">
+        <div class="action-icons">
+          <button mat-icon-button color="primary" (click)="editPost(post)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="deletePost(post)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
       </div>
     </mat-card-header>
     <mat-card-content>
@@ -38,7 +57,9 @@
       <!-- Display other post details as needed -->
     </mat-card-content>
   </mat-card>
+
 </ng-container>
+
 
 <ng-template #noPosts>
   <mat-card class="no-posts-card">

@@ -16,6 +16,7 @@ import { AuthService } from '../services/auth.service';
 export class ThreadDetailsComponent implements OnInit {
   thread!: Thread;
   posts: Post[] = [];
+  loggedInUserId!: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -27,6 +28,7 @@ export class ThreadDetailsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.loggedInUserId = this.authService.getUserId() || '';
     this.route.paramMap.subscribe((params) => {
       const threadId = params.get('id');
       this.threadService.getThreadById(threadId!).subscribe((response) => {
@@ -74,4 +76,26 @@ export class ThreadDetailsComponent implements OnInit {
       }
     });
   }
+
+  editPost(post: Post) {
+    // Navigate to the edit post page passing the post ID
+    this.router.navigate(['/edit-post', post._id]);
+  }
+
+  deletePost(post: Post) {
+    this.postsService.deletePost(post._id).subscribe(
+      (response) => {
+        console.log('Post deleted:', response);
+        this.fetchPostsForThread(); // Fetch the updated list of posts
+      },
+      (error) => {
+        console.error('Error deleting post:', error);
+      }
+    );
+  }
+
+  deleteThread() {
+
+  }
+
 }

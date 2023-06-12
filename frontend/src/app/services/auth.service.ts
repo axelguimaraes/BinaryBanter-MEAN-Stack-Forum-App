@@ -24,6 +24,38 @@ export class AuthService {
     return this.username;
   }
 
+  getUserId(): string | null {
+    const authToken = this.getAuthToken();
+    if (!authToken) {
+      return null;
+    }
+
+    const tokenParts = authToken.split('.');
+    if (tokenParts.length !== 3) {
+      return null;
+    }
+
+    const payload = JSON.parse(atob(tokenParts[1]));
+    if (!payload || !payload.userId) {
+      return null;
+    }
+
+    return payload.userId;
+  }
+
+  private getAuthToken(): string | null {
+    const authToken = document.cookie
+      .split(';')
+      .map((cookie) => cookie.trim())
+      .find((cookie) => cookie.startsWith('auth-token='));
+
+    if (!authToken) {
+      return null;
+    }
+
+    return authToken.split('=')[1];
+  }
+
   login(email: string, password: string): Observable<any> {
     const loginUrl = 'http://localhost:3000/api/auth/login';
 

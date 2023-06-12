@@ -6,4 +6,5 @@ export interface Post {
   thread: string;
   createdAt: Date;
   updatedAt: Date;
+  createdBy: string;
 }

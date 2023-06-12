@@ -50,6 +50,10 @@
   margin-right: 120px;
 }
 
+.delete-thread-button {
+  margin-left: auto;
+}
+
 .no-posts-card {
   margin: 16px 120px;
 }
@@ -57,4 +61,38 @@
 
 .post-card {
   margin: 16px 120px;
+}
+
+.post-author {
+  font-size: 0.8rem;
+  color: rgba(0, 0, 0, 0.54);
+  margin-left: 10px;
+}
+
+.posts-sentence {
+  margin-left: 120px;
+  margin-top: 32px;
+  font-size: 20px;
+}
+
+.post-card-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.post-actions {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
+
+.action-icons {
+  display: flex;
+  gap: 6px; /* Adjust the gap between the icons as needed */
+}
+
+.post-card-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
