@@ -28,6 +28,16 @@ export class PostsService {
     return this.http.put<any>(url, postData, { withCredentials: true }); // Include 'withCredentials' to send cookies
   }
 
+  upvotePost(postId: string): Observable<any> {
+    const url = `${this.API_URL}/${postId}/upvote`;
+    return this.http.put<any>(url, null, { withCredentials: true });
+  }
+
+  downvotePost(postId: string): Observable<any> {
+    const url = `${this.API_URL}/${postId}/downvote`;
+    return this.http.put<any>(url, null, { withCredentials: true });
+  }
+
   deletePost(postId: string): Observable<any> {
     const url = `${this.API_URL}/${postId}`;
     return this.http.delete<any>(url, { withCredentials: true }); // Include 'withCredentials' to send cookies

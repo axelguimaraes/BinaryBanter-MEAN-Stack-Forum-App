@@ -19,4 +19,11 @@ router.get('/:postId', postController.getPostById);
 // Delete a specific post by ID
 router.delete('/:id', authController.isAuthenticated, postController.deletePost);
 
+// Upvote a post
+router.put('/:id/upvote', authController.isAuthenticated, postController.upvotePost);
+
+// Downvote a post
+router.put('/:id/downvote', authController.isAuthenticated, postController.downvotePost);
+
+
 module.exports = router;

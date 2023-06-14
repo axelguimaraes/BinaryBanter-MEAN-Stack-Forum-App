@@ -4,15 +4,15 @@
   </button>
   <span class="go-back-text">Go back</span>
 
-  <button mat-raised-button *ngIf="thread.createdBy === loggedInUserId" color="warn" class="delete-thread-button"  (click)="deleteThread()">
-     Delete Thread
+  <button mat-raised-button *ngIf="thread.createdBy === loggedInUserId" color="warn" class="delete-thread-button"
+    (click)="deleteThread()">
+    Delete Thread
   </button>
 
-  <button mat-raised-button color="primary" class="add-post-button" *ngIf="loggedInUserId"  (click)="addPost()">
+  <button mat-raised-button color="primary" class="add-post-button" *ngIf="loggedInUserId" (click)="addPost()">
     Add Post
   </button>
 </div>
-
 
 <mat-card *ngIf="thread" class="thread-details">
   <mat-card-header>
@@ -27,8 +27,6 @@
     <!-- Display other thread details as needed -->
   </mat-card-content>
 </mat-card>
-
-
 
 <ng-container *ngIf="posts.length > 0; else noPosts">
   <div class="posts-sentence">
@@ -52,14 +50,23 @@
       </div>
     </mat-card-header>
     <mat-card-content>
-      <p>{{ post.content }}</p>
-      <p>Created At: {{ post.createdAt | date }}</p>
+      <div class="post-content">
+        <p>{{ post.content }}</p>
+        <p>Created At: {{ post.createdAt | date }}</p>
+      </div>
+      <div class="vote-icons" *ngIf="loggedInUserId">
+        <button mat-icon-button color="primary" class="post-vote-button" (click)="upvotePost(post)">
+          <fa-icon [icon]="faArrowUp"></fa-icon>
+        </button>
+        <div class="post-vote-count">{{ post.upvotes }}</div>
+        <button mat-icon-button color="primary" class="post-vote-button" (click)="downvotePost(post)">
+          <fa-icon [icon]="faArrowDown"></fa-icon>
+        </button>
+      </div>
       <!-- Display other post details as needed -->
     </mat-card-content>
   </mat-card>
-
 </ng-container>
-
 
 <ng-template #noPosts>
   <mat-card class="no-posts-card">

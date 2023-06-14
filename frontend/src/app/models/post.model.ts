@@ -7,4 +7,6 @@ export interface Post {
   createdAt: Date;
   updatedAt: Date;
   createdBy: string;
+  upvotes: number;
+  downvotes: number;
 }

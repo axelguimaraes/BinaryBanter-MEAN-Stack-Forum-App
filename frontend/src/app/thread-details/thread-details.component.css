@@ -1,7 +1,3 @@
-.hide-other-components {
-  display: none;
-}
-
 .thread-details {
   margin: 16px 120px;
   background-color: #c9c9c9;
@@ -32,7 +28,6 @@
   color: rgba(0, 0, 0, 0.54);
 }
 
-
 .button-container {
   display: flex;
   align-items: center;
@@ -58,7 +53,6 @@
   margin: 16px 120px;
 }
 
-
 .post-card {
   margin: 16px 120px;
 }
@@ -81,12 +75,12 @@
 }
 
 .post-actions {
-  margin-left: auto;
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 
-.action-icons {
+.vote-icons {
   display: flex;
   gap: 6px; /* Adjust the gap between the icons as needed */
 }

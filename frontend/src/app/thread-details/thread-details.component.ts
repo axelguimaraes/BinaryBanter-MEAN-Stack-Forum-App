@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Post } from '../models/post.model';
 import { PostsService } from '../services/posts.service';
 import { AuthService } from '../services/auth.service';
+import { faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-thread-details',
@@ -17,6 +18,8 @@ export class ThreadDetailsComponent implements OnInit {
   thread!: Thread;
   posts: Post[] = [];
   loggedInUserId!: string;
+  faArrowUp = faArrowUp;
+  faArrowDown = faArrowDown;
 
   constructor(
     private route: ActivatedRoute,
@@ -96,6 +99,34 @@ export class ThreadDetailsComponent implements OnInit {
 
   deleteThread() {
 
+  }
+
+  upvotePost(post: Post) {
+    // Perform the upvote logic here, e.g., call a service method
+    // to increase the upvote count for the post
+    this.postsService.upvotePost(post._id).subscribe(
+      (response) => {
+        console.log('Post upvoted:', response);
+        post.upvotes++; // Increase the upvote count in the UI
+      },
+      (error) => {
+        console.error('Error upvoting post:', error);
+      }
+    );
+  }
+
+  downvotePost(post: Post) {
+    // Perform the downvote logic here, e.g., call a service method
+    // to decrease the upvote count for the post
+    this.postsService.downvotePost(post._id).subscribe(
+      (response) => {
+        console.log('Post downvoted:', response);
+        post.upvotes--; // Decrease the upvote count in the UI
+      },
+      (error) => {
+        console.error('Error downvoting post:', error);
+      }
+    );
   }
 
 }

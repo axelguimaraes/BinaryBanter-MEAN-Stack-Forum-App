@@ -103,4 +103,47 @@ postController.deletePost = (req, res) => {
     });
 };
 
+// Upvote a post
+postController.upvotePost = (req, res) => {
+  const postId = req.params.id;
+
+  PostModel.findByIdAndUpdate(
+    postId,
+    { $inc: { upvotes: 1 } },
+    { new: true }
+  )
+    .then((updatedPost) => {
+      if (!updatedPost) {
+        return res.status(404).json({ error: "Post not found" });
+      }
+      res.status(200).json(updatedPost);
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).json({ error: "Internal server error" });
+    });
+};
+
+// Downvote a post
+postController.downvotePost = (req, res) => {
+  const postId = req.params.id;
+
+  PostModel.findByIdAndUpdate(
+    postId,
+    { $inc: { downvotes: 1 } },
+    { new: true }
+  )
+    .then((updatedPost) => {
+      if (!updatedPost) {
+        return res.status(404).json({ error: "Post not found" });
+      }
+      res.status(200).json(updatedPost);
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).json({ error: "Internal server error" });
+    });
+};
+
+
 module.exports = postController;
