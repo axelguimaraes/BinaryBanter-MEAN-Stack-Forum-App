@@ -22,4 +22,11 @@
   </mat-card>
   <div class="spacer"></div>
   <p *ngIf="threads.length === 0" class="no-threads-message">No threads available.</p>
+
+  <mat-paginator [length]="totalThreads" [pageSize]="pageSize" [pageIndex]="pageIndex" [pageSizeOptions]="[25, 50, 100]"
+    (page)="onPageChange($event)"></mat-paginator>
 </div>
+
+<button mat-fab class="scroll-top-button" (click)="scrollToTop()" *ngIf="showScrollTopButton">
+  <mat-icon>keyboard_arrow_up</mat-icon>
+</button>

@@ -45,3 +45,11 @@
 .thread-meta-icon {
   margin-right: 5px;
 }
+
+.scroll-top-button {
+  position: fixed;
+  bottom: 64px;
+  right: 16px;
+  z-index: 4; /* Update the z-index value */
+}
+

@@ -89,8 +89,8 @@ export class ThreadDetailsComponent implements OnInit {
     this.postsService.deletePost(post._id).subscribe(
       (response) => {
         console.log('Post deleted:', response);
-        this.showSnackbar('Post deleted successfully!')
         this.fetchPostsForThread(); // Fetch the updated list of posts
+        this.showSnackbar('Post deleted successfully!')
       },
       (error) => {
         this.showSnackbar('Error deleting post!')
