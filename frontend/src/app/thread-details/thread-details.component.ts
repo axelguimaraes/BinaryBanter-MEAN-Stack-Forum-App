@@ -8,6 +8,8 @@ import { Post } from '../models/post.model';
 import { PostsService } from '../services/posts.service';
 import { AuthService } from '../services/auth.service';
 import { faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatChipsModule } from '@angular/material/chips';
 
 @Component({
   selector: 'app-thread-details',
@@ -27,7 +29,8 @@ export class ThreadDetailsComponent implements OnInit {
     private router: Router,
     private dialog: MatDialog,
     private postsService: PostsService,
-    private authService: AuthService
+    private authService: AuthService,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit() {
@@ -71,11 +74,8 @@ export class ThreadDetailsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        // Handle the post content from the dialog
         console.log('New post content:', result);
-        // Perform any actions based on the post content
-        // e.g., call a service to create the post
-        this.fetchPostsForThread(); // Fetch the updated list of posts
+         this.fetchPostsForThread();
       }
     });
   }
@@ -89,16 +89,28 @@ export class ThreadDetailsComponent implements OnInit {
     this.postsService.deletePost(post._id).subscribe(
       (response) => {
         console.log('Post deleted:', response);
+        this.showSnackbar('Post deleted successfully!')
         this.fetchPostsForThread(); // Fetch the updated list of posts
       },
       (error) => {
+        this.showSnackbar('Error deleting post!')
         console.error('Error deleting post:', error);
       }
     );
   }
 
   deleteThread() {
-
+    this.threadService.deleteThreadById(this.thread._id).subscribe(
+      (response) => {
+        console.log('Thread deleted: ', response);
+        this.showSnackbar('Thread deleted successfully!')
+        this.goBack()
+      },
+      (error) => {
+        console.error('Error deleting thread: ', error)
+        this.showSnackbar('Error deleting thread!')
+      }
+    )
   }
 
   upvotePost(post: Post) {
@@ -129,4 +141,9 @@ export class ThreadDetailsComponent implements OnInit {
     );
   }
 
+  showSnackbar(message: string) {
+    this.snackBar.open(message, 'Close', {
+      duration: 5000,
+    });
+  }
 }

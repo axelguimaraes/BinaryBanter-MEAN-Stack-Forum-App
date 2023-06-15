@@ -1,12 +1,34 @@
 <h2 mat-dialog-title>Add Post</h2>
 <mat-dialog-content>
   <form [formGroup]="threadForm" (ngSubmit)="onSubmit()">
-    <mat-form-field>
+    <mat-form-field class="title-text-field">
       <input matInput formControlName="title" placeholder="Post Title" required>
     </mat-form-field>
-    <mat-form-field>
+    <mat-form-field class="content-text-field">
       <textarea matInput formControlName="content" placeholder="Post Content" rows="5" required></textarea>
     </mat-form-field>
+
+    <mat-form-field class="tags-chip-list">
+      <mat-label>Tags</mat-label>
+      <mat-chip-grid #chipGrid aria-label="Tag selection">
+        <mat-chip-row *ngFor="let tag of tags" (removed)="remove(tag)">
+          {{tag}}
+          <button matChipRemove [attr.aria-label]="'remove ' + tag">
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </mat-chip-row>
+      </mat-chip-grid>
+      <input placeholder="New tag..." #tagInput [formControl]="tagCtrl"
+        [matChipInputFor]="chipGrid" [matAutocomplete]="auto"
+        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+        (matChipInputTokenEnd)="add($event)"/>
+      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+        <mat-option *ngFor="let tag of filteredTags | async" [value]="tag">
+          {{tag}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+
   </form>
 </mat-dialog-content>
 <mat-dialog-actions align="end">

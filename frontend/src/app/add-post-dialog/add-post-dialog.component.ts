@@ -1,8 +1,32 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import {
+  Component,
+  Inject,
+  OnInit,
+  ElementRef,
+  inject,
+  ViewChild,
+} from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { PostsService } from '../services/posts.service';
 import { AuthService } from '../services/auth.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  FormControl,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import {
+  MatAutocompleteSelectedEvent,
+  MatAutocompleteModule,
+} from '@angular/material/autocomplete';
+import { MatChipInputEvent, MatChipsModule } from '@angular/material/chips';
+import { Observable } from 'rxjs';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { map, startWith } from 'rxjs/operators';
 
 @Component({
   selector: 'app-add-post-dialog',
@@ -13,13 +37,32 @@ export class AddPostDialogComponent implements OnInit {
   threadForm!: FormGroup;
   author: string = '';
 
+  separatorKeysCodes: number[] = [ENTER, COMMA];
+  tagCtrl = new FormControl('');
+  filteredTags: Observable<string[]>;
+  tags: string[] = [];
+  allTags: string[] = ['LEI', 'LSIRC', 'Security', 'Development', 'Testing'];
+
+  @ViewChild('fruitInput')
+  fruitInput!: ElementRef<HTMLInputElement>;
+
+  announcer = inject(LiveAnnouncer);
+
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<AddPostDialogComponent>,
     private postsService: PostsService,
     private authService: AuthService,
-    private formBuilder: FormBuilder
-  ) {}
+    private formBuilder: FormBuilder,
+    private snackBar: MatSnackBar
+  ) {
+    this.filteredTags = this.tagCtrl.valueChanges.pipe(
+      startWith(null),
+      map((fruit: string | null) =>
+        fruit ? this._filter(fruit) : this.allTags.slice()
+      )
+    );
+  }
 
   ngOnInit(): void {
     this.createThreadForm();
@@ -37,7 +80,7 @@ export class AddPostDialogComponent implements OnInit {
   fetchAuthor(): void {
     this.author = localStorage.getItem('username') || '';
     this.threadForm.patchValue({
-      author: this.author
+      author: this.author,
     });
   }
 
@@ -53,7 +96,8 @@ export class AddPostDialogComponent implements OnInit {
     const postData = {
       ...this.threadForm.value,
       author: author,
-      thread: threadId
+      thread: threadId,
+      tags: this.tags
     };
 
     this.postsService.createPost(postData).subscribe(
@@ -65,6 +109,44 @@ export class AddPostDialogComponent implements OnInit {
       (error) => {
         console.error('Error creating post:', error);
       }
+    );
+  }
+
+  add(event: MatChipInputEvent): void {
+    const value = (event.value || '').trim();
+
+    // Add our fruit
+    if (value) {
+      this.tags.push(value);
+    }
+
+    // Clear the input value
+    event.chipInput!.clear();
+
+    this.tagCtrl.setValue(null);
+  }
+
+  remove(fruit: string): void {
+    const index = this.tags.indexOf(fruit);
+
+    if (index >= 0) {
+      this.tags.splice(index, 1);
+
+      this.announcer.announce(`Removed ${fruit}`);
+    }
+  }
+
+  selected(event: MatAutocompleteSelectedEvent): void {
+    this.tags.push(event.option.viewValue);
+    this.fruitInput.nativeElement.value = '';
+    this.tagCtrl.setValue(null);
+  }
+
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    return this.allTags.filter((tag) =>
+      tag.toLowerCase().includes(filterValue)
     );
   }
 }

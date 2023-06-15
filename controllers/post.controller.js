@@ -23,7 +23,7 @@ postController.getAllPosts = (req, res) => {
 
 // Create a new post
 postController.createPost = (req, res) => {
-  const { title, content, thread, author, image } = req.body;
+  const { title, content, thread, author, image, tags } = req.body;
 
   const post = new PostModel({
     title,
@@ -32,6 +32,7 @@ postController.createPost = (req, res) => {
     createdBy: req.userId,
     author,
     image: image || null,
+    tags: tags || null
   });
 
   console.log(post)

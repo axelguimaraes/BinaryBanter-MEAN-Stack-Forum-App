@@ -5,19 +5,21 @@ import { CookieService } from 'ngx-cookie-service';
 import { Thread } from '../models/thread.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ThreadService {
   private baseUrl = 'http://localhost:3000/api/thread';
 
-  constructor(private http: HttpClient, private cookieService: CookieService) { }
+  constructor(private http: HttpClient, private cookieService: CookieService) {}
 
   getAllThreads(): Observable<any> {
     return this.http.get(`${this.baseUrl}`);
   }
 
   createThread(threadData: any): Observable<any> {
-    return this.http.post(`${this.baseUrl}`, threadData, { withCredentials: true });
+    return this.http.post(`${this.baseUrl}`, threadData, {
+      withCredentials: true,
+    });
   }
 
   getThreadById(threadId: string): Observable<any> {
@@ -29,11 +31,13 @@ export class ThreadService {
   }
 
   deleteThreadById(threadId: string): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/${threadId}`);
+    return this.http.delete(`${this.baseUrl}/${threadId}`, {
+      withCredentials: true,
+    });
   }
 
   emitThreadCreated() {
-    this.threadCreated.emit()
+    this.threadCreated.emit();
   }
 
   threadCreated: EventEmitter<void> = new EventEmitter<void>();

@@ -52,6 +52,11 @@
     <mat-card-content>
       <div class="post-content">
         <p>{{ post.content }}</p>
+
+        <mat-chip-listbox aria-label="Fish selection" [selectable]="false" *ngFor="let tag of post.tags">
+          <mat-chip-option>{{tag}}</mat-chip-option>
+        </mat-chip-listbox>
+
         <p>Created At: {{ post.createdAt | date }}</p>
       </div>
       <div class="vote-icons" *ngIf="loggedInUserId">

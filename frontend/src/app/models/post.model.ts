@@ -5,8 +5,8 @@ export interface Post {
   author: string;
   thread: string;
   createdAt: Date;
-  updatedAt: Date;
   createdBy: string;
   upvotes: number;
   downvotes: number;
+  tags: string[]
 }

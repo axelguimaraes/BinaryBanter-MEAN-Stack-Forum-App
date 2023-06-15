@@ -3,8 +3,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { DialogComponent } from './login-dialog/dialog.component';
 import { AuthService } from './services/auth.service';
 import { AddThreadDialogComponent } from './add-thread-dialog/add-thread-dialog.component';
-import { Observable } from 'rxjs';
-import { of, BehaviorSubject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 
 @Component({
