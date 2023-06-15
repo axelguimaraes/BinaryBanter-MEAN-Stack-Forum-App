@@ -97,7 +97,7 @@ export class AddPostDialogComponent implements OnInit {
       ...this.threadForm.value,
       author: author,
       thread: threadId,
-      tags: this.tags
+      tags: this.tags,
     };
 
     this.postsService.createPost(postData).subscribe(

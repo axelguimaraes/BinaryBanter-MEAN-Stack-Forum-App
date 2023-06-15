@@ -8,7 +8,7 @@
       <textarea matInput formControlName="content" placeholder="Post Content" rows="5" required></textarea>
     </mat-form-field>
 
-    <mat-form-field class="tags-chip-list">
+    <mat-form-field class="tags-chip-list" [class.error]="tagCtrl.invalid && tagCtrl.touched && tags.length === 0">
       <mat-label>Tags</mat-label>
       <mat-chip-grid #chipGrid aria-label="Tag selection">
         <mat-chip-row *ngFor="let tag of tags" (removed)="remove(tag)">
@@ -18,20 +18,22 @@
           </button>
         </mat-chip-row>
       </mat-chip-grid>
-      <input placeholder="New tag..." #tagInput [formControl]="tagCtrl"
-        [matChipInputFor]="chipGrid" [matAutocomplete]="auto"
-        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-        (matChipInputTokenEnd)="add($event)"/>
+      <input placeholder="New tag..." #tagInput [formControl]="tagCtrl" [matChipInputFor]="chipGrid"
+        [matAutocomplete]="auto" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+        (matChipInputTokenEnd)="add($event)" required/>
       <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
         <mat-option *ngFor="let tag of filteredTags | async" [value]="tag">
           {{tag}}
         </mat-option>
       </mat-autocomplete>
-    </mat-form-field>
 
+      <mat-error *ngIf="tagCtrl.invalid && tagCtrl.touched && tags.length === 0">
+        At least one tag is required.
+      </mat-error>
+    </mat-form-field>
   </form>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close color="primary">Cancel</button>
-  <button mat-button type="submit" color="primary" [disabled]="threadForm.invalid" (click)="onSubmit()">Add</button>
+  <button mat-button type="submit" color="primary" [disabled]="threadForm.invalid || tags.length === 0" (click)="onSubmit()">Add</button>
 </mat-dialog-actions>
