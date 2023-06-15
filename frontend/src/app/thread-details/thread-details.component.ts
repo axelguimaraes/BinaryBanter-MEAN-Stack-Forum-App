@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ThreadService } from '../services/thread.service';
 import { Thread } from '../models/thread.model';
@@ -16,12 +16,14 @@ import { MatChipsModule } from '@angular/material/chips';
   templateUrl: './thread-details.component.html',
   styleUrls: ['./thread-details.component.css'],
 })
-export class ThreadDetailsComponent implements OnInit {
+export class ThreadDetailsComponent implements OnInit, OnDestroy {
   thread!: Thread;
   posts: Post[] = [];
   loggedInUserId!: string;
   faArrowUp = faArrowUp;
   faArrowDown = faArrowDown;
+  showScrollTopButton = false;
+  private scrollListener!: EventListenerOrEventListenerObject;
 
   constructor(
     private route: ActivatedRoute,
@@ -46,8 +48,25 @@ export class ThreadDetailsComponent implements OnInit {
     this.postsService.postCreated.subscribe(() => {
       this.fetchPostsForThread();
     });
+
+    this.scrollListener = () => this.handleScroll();
+    window.addEventListener('scroll', this.scrollListener);
   }
 
+  ngOnDestroy(): void {
+    window.removeEventListener('scroll', this.scrollListener);
+  }
+
+  handleScroll(): void {
+    // Show/hide scroll-to-top button based on scroll position
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+    this.showScrollTopButton = scrollTop > 0;
+  }
+
+  scrollToTop(): void {
+    // Scroll the page to the top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 
   fetchPostsForThread() {
     this.postsService.getPosts().subscribe((response) => {
