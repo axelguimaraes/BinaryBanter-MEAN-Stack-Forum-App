@@ -90,6 +90,7 @@ export class DialogComponent implements OnInit {
               const result = {
                 isLoggedIn: true,
               };
+              this.showSnackbar('Login successful!')
 
               this.dialogRef.close(result);
             } else {
@@ -140,7 +141,7 @@ export class DialogComponent implements OnInit {
 
   showSnackbar(message: string) {
     this.snackBar.open(message, 'Close', {
-      duration: 3000, // 3 seconds
+      duration: 5000,
     });
   }
 }

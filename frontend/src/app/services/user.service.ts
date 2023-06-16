@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { User } from '../models/user.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserService {
   private apiUrl = 'http://localhost:3000/api/user';
@@ -15,12 +15,16 @@ export class UserService {
     return this.http.get<User>(`${this.apiUrl}/:id`, { withCredentials: true });
   }
 
-  updateUserProfile(username: string, email: string): Observable<User> {
+  updateUserProfile(username: string, email: string, id: string): Observable<User> {
     const payload = { username, email };
-    return this.http.put<User>(`${this.apiUrl}/profile`, payload);
+    return this.http.put<User>(`${this.apiUrl}/:id`, payload, {
+      withCredentials: true,
+    });
   }
 
-  deleteAccount(): Observable<any> {
-    return this.http.delete<any>(`${this.apiUrl}/account`);
+  deleteAccount(id: string): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/:id`, {
+      withCredentials: true,
+    });
   }
 }

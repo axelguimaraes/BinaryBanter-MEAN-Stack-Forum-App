@@ -5,6 +5,7 @@ import { AuthService } from './services/auth.service';
 import { AddThreadDialogComponent } from './add-thread-dialog/add-thread-dialog.component';
 import { BehaviorSubject } from 'rxjs';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-root',
@@ -16,18 +17,21 @@ export class AppComponent implements OnInit {
   isLoggedIn: boolean = false;
   username$: BehaviorSubject<string> = new BehaviorSubject<string>('');
   showAddThreadButton: boolean = false;
+  userId!: string
 
   constructor(
     private dialog: MatDialog,
     private authService: AuthService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private snackBar: MatSnackBar
   ) {
     this.checkedLoggedInStatus();
     const storedUsername = localStorage.getItem('username');
     if (storedUsername) {
       this.username$.next(storedUsername);
     }
+    this.userId = this.authService.getUserId() || '';
   }
 
   ngOnInit(): void {
@@ -82,6 +86,7 @@ export class AppComponent implements OnInit {
         this.isLoggedIn = false;
         this.username$.next('');
         window.location.reload();
+        this.showSnackbar('Logout successful!')
       },
       (error: any) => {
         console.error('Logout error:', error);
@@ -107,6 +112,16 @@ export class AppComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result: any) => {
       // Handle the result or perform any necessary actions
       console.log('Dialog closed with result:', result);
+    });
+  }
+
+  goToProfile() {
+    this.router.navigate(['/user', this.userId])
+  }
+
+  showSnackbar(message: string) {
+    this.snackBar.open(message, 'Close', {
+      duration: 5000,
     });
   }
 }

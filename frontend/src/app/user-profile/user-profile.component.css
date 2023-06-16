@@ -1,0 +1,32 @@
+.profile-card {
+  margin: 16px;
+}
+
+.buttons {
+  justify-content: space-between;
+  margin: 16px;
+}
+
+.profile-header {
+  margin: 8px;
+}
+
+.profile-content {
+  margin: 16px;
+}
+
+.back-button-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+  margin-top: 16px;
+  margin-left: 16px;
+}
+
+.back-button {
+  margin-right: 8px;
+}
+
+.go-back-text {
+  vertical-align: middle;
+}

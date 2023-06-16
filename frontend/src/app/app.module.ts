@@ -12,9 +12,10 @@ import { MatCardModule } from '@angular/material/card';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatIconModule } from '@angular/material/icon';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import {MatChipsModule} from '@angular/material/chips';
-import {MatAutocompleteModule} from '@angular/material/autocomplete';
-import {MatPaginatorModule} from '@angular/material/paginator';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatMenuModule } from '@angular/material/menu';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -24,9 +25,20 @@ import { ThreadContainerComponent } from './thread-container/thread-container.co
 import { AddThreadDialogComponent } from './add-thread-dialog/add-thread-dialog.component';
 import { ThreadDetailsComponent } from './thread-details/thread-details.component';
 import { AddPostDialogComponent } from './add-post-dialog/add-post-dialog.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+import { ConfirmationDialogComponent } from './user-profile/confirmation-dialog/confirmation-dialog.component';
 
 @NgModule({
-  declarations: [AppComponent, DialogComponent, ThreadContainerComponent, AddThreadDialogComponent, ThreadDetailsComponent, AddPostDialogComponent],
+  declarations: [
+    AppComponent,
+    DialogComponent,
+    ThreadContainerComponent,
+    AddThreadDialogComponent,
+    ThreadDetailsComponent,
+    AddPostDialogComponent,
+    UserProfileComponent,
+    ConfirmationDialogComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -45,7 +57,8 @@ import { AddPostDialogComponent } from './add-post-dialog/add-post-dialog.compon
     FontAwesomeModule,
     MatChipsModule,
     MatAutocompleteModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatMenuModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
