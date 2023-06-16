@@ -1,21 +1,21 @@
 <h1 mat-dialog-title>{{ isRegisterForm ? 'Register' : 'Login' }}</h1>
 <div mat-dialog-content class="dialog-content">
   <form [formGroup]="isRegisterForm ? registerForm : loginForm">
-    <mat-form-field *ngIf="isRegisterForm">
+    <mat-form-field *ngIf="isRegisterForm" class="username-field">
       <mat-label>Enter your username</mat-label>
-      <input matInput placeholder="Your Username" class="username-field" formControlName="username" required>
+      <input matInput placeholder="Your Username" formControlName="username" required>
       <mat-error *ngIf="getErrorMessage('username')">{{ getErrorMessage('username') }}</mat-error>
     </mat-form-field>
 
-    <mat-form-field>
+    <mat-form-field class="email-field">
       <mat-label>Enter your email</mat-label>
-      <input matInput placeholder="user@example.com" class="email-field" formControlName="email" required>
+      <input matInput placeholder="user@example.com" formControlName="email" required>
       <mat-error *ngIf="getErrorMessage('email')">{{ getErrorMessage('email') }}</mat-error>
     </mat-form-field>
 
-    <mat-form-field>
+    <mat-form-field class="password-field">
       <mat-label>Enter your password</mat-label>
-      <input matInput type="password" placeholder="Password" class="password-field" formControlName="password" required>
+      <input matInput type="password" placeholder="Password" formControlName="password" required>
       <mat-error *ngIf="getErrorMessage('password')">{{ getErrorMessage('password') }}</mat-error>
     </mat-form-field>
 

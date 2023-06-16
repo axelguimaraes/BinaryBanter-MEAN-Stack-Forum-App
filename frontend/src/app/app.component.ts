@@ -101,16 +101,9 @@ export class AppComponent implements OnInit {
 
   openAddThreadDialog(): void {
     const dialogRef = this.dialog.open(AddThreadDialogComponent, {
-      width: '400px',
-      height: '400px',
-      // Set the width of the dialog as per your requirements
-      // You can pass additional data to the dialog using the `data` property
-      // For example: data: { userId: '123' }
     });
 
-    // Subscribe to the dialog's afterClosed() event to get the result when the dialog is closed
     dialogRef.afterClosed().subscribe((result: any) => {
-      // Handle the result or perform any necessary actions
       console.log('Dialog closed with result:', result);
     });
   }
