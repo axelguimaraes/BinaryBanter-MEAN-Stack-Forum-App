@@ -10,9 +10,6 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 })
 export class ThreadContainerComponent implements OnInit, OnDestroy {
   threads: Thread[] = [];
-  pageSize = 25;
-  pageIndex = 0;
-  totalThreads = 0;
   showScrollTopButton = false;
   private scrollListener!: EventListenerOrEventListenerObject;
 
@@ -49,17 +46,10 @@ export class ThreadContainerComponent implements OnInit, OnDestroy {
     this.threadService.getAllThreads().subscribe(
       (threads: Thread[]) => {
         this.threads = threads;
-        this.totalThreads = threads.length;
-        this.pageIndex = 0;
-        this.paginator.firstPage();
       },
       (error: any) => {
         console.error('Error fetching threads:', error);
       }
     );
-  }
-
-  onPageChange(event: PageEvent): void {
-    this.pageIndex = event.pageIndex;
   }
 }

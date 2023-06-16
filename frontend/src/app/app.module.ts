@@ -27,6 +27,8 @@ import { ThreadDetailsComponent } from './thread-details/thread-details.componen
 import { AddPostDialogComponent } from './add-post-dialog/add-post-dialog.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { ConfirmationDialogComponent } from './user-profile/confirmation-dialog/confirmation-dialog.component';
+import { EditProfileDialogComponent } from './user-profile/edit-profile-dialog/edit-profile-dialog.component';
+import { ChangePasswordDialogComponent } from './user-profile/change-password-dialog/change-password-dialog.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +40,8 @@ import { ConfirmationDialogComponent } from './user-profile/confirmation-dialog/
     AddPostDialogComponent,
     UserProfileComponent,
     ConfirmationDialogComponent,
+    EditProfileDialogComponent,
+    ChangePasswordDialogComponent,
   ],
   imports: [
     BrowserModule,

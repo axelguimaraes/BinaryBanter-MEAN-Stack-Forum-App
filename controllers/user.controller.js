@@ -1,4 +1,5 @@
 const UserModel = require("../models/user.model");
+const bcrypt = require("bcryptjs");
 
 let usersController = {};
 
@@ -35,6 +36,34 @@ usersController.updateProfile = (req, res) => {
     });
 };
 
+// Update user password
+usersController.updatePassword = (req, res) => {
+  const userId = req.userId;
+  const { password } = req.body;
+
+  bcrypt.hash(password, 10, (err, hashedPassword) => {
+    if (err) {
+      return res.status(500).json({ error: "Internal server error" });
+    }
+
+    UserModel.findByIdAndUpdate(
+      userId,
+      { password: hashedPassword },
+      { new: true }
+    )
+      .then((updatedUser) => {
+        if (!updatedUser) {
+          return res.status(404).json({ error: "User not found" });
+        }
+        res.status(200).json(updatedUser);
+      })
+      .catch((error) => {
+        res.status(500).json({ error: "Internal server error" });
+      });
+  });
+};
+
+
 // Delete user account
 usersController.deleteAccount = (req, res) => {
   const userId = req.userId;
@@ -51,4 +80,4 @@ usersController.deleteAccount = (req, res) => {
     });
 };
 
-module.exports = usersController
+module.exports = usersController;

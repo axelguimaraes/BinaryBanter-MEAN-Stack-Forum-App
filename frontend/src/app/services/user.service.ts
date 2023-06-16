@@ -22,6 +22,13 @@ export class UserService {
     });
   }
 
+  changePassword(password: string, id: string): Observable<User> {
+    const payload = { password };
+    return this.http.put<User>(`${this.apiUrl}/:id/changePassword`, payload, {
+      withCredentials: true,
+    });
+  }
+
   deleteAccount(id: string): Observable<any> {
     return this.http.delete<any>(`${this.apiUrl}/:id`, {
       withCredentials: true,

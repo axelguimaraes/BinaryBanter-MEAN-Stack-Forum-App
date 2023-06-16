@@ -7,6 +7,8 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { EditProfileDialogComponent } from './edit-profile-dialog/edit-profile-dialog.component';
+import { ChangePasswordDialogComponent } from './change-password-dialog/change-password-dialog.component';
 
 @Component({
   selector: 'app-user-profile',
@@ -32,8 +34,45 @@ export class UserProfileComponent implements OnInit {
   }
 
   editProfile(): void {
-    //this.userService.updateUserProfile(this.userId)
-    console.log('Edit Profile');
+    this.user$.subscribe((user) => {
+      const dialogRef = this.dialog.open(EditProfileDialogComponent, {
+        data: user,
+      });
+
+      dialogRef.afterClosed().subscribe((updatedProfile) => {
+        if (updatedProfile) {
+          // Handle the updated profile data if needed
+          console.log(updatedProfile);
+          this.userService.updateUserProfile(updatedProfile.username, updatedProfile.email, this.userId).subscribe(() => {
+            this.authService.logout();
+            this.clearCookies();
+            this.clearLocalStorage();
+            this.router.navigate(['/']);
+            this.showSnackbar('Profile edited successfully! Please login again to implement changes.');
+          })
+        }
+      });
+    });
+  }
+
+  changePassword(): void {
+    this.user$.subscribe((user) => {
+      const dialogRef = this.dialog.open(ChangePasswordDialogComponent, {
+        data: user,
+      });
+
+      dialogRef.afterClosed().subscribe((updatedProfile) => {
+        if (updatedProfile) {
+          this.userService.changePassword(updatedProfile, this.userId).subscribe(() => {
+            this.authService.logout();
+            this.clearCookies();
+            this.clearLocalStorage();
+            this.router.navigate(['/']);
+            this.showSnackbar('Password changed successfully! Please login again to implement changes.');
+          })
+        }
+      });
+    });
   }
 
   deleteProfile(): void {
@@ -50,8 +89,7 @@ export class UserProfileComponent implements OnInit {
           this.clearCookies();
           this.clearLocalStorage();
           this.router.navigate(['/']);
-          this.showSnackbar('Profile deleted successfully!')
-          window.location.reload()
+          this.showSnackbar('Profile deleted successfully!');
         });
       }
     });
@@ -62,7 +100,8 @@ export class UserProfileComponent implements OnInit {
   }
 
   private clearCookies(): void {
-    document.cookie = 'auth-token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+    document.cookie =
+      'auth-token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
   }
 
   private clearLocalStorage(): void {
