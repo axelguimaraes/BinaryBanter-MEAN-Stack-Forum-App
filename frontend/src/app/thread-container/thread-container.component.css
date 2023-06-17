@@ -53,3 +53,6 @@
   z-index: 4; /* Update the z-index value */
 }
 
+.post-count-label {
+  margin-left: 5px;
+}

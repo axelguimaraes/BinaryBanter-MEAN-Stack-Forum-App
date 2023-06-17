@@ -15,8 +15,8 @@
     <mat-card-footer>
       <div class="thread-meta">
         <mat-icon class="thread-meta-icon">forum</mat-icon> {{ thread.posts.length }}
-        <span *ngIf="thread.posts.length === 1">post</span>
-        <span *ngIf="thread.posts.length !== 1">posts</span>
+        <span class="post-count-label" *ngIf="thread.posts.length === 1">post</span>
+        <span class="post-count-label" *ngIf="thread.posts.length !== 1">posts</span>
       </div>
     </mat-card-footer>
   </mat-card>

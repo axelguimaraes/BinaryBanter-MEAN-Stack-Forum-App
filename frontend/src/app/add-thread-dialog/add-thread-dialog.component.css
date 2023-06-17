@@ -27,3 +27,15 @@
   margin-top: 16px;
   text-align: center;
 }
+
+.name-text-field {
+  width: 100%;
+}
+
+.description-text-field {
+  width: 100%;
+}
+
+.buttons {
+  margin: 16px
+}

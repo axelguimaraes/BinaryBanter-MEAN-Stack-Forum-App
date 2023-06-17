@@ -69,6 +69,34 @@ threadsController.updateThreadById = (req, res) => {
     });
 };
 
+// Add a post to a specific thread by ID
+threadsController.addPostToThread = (req, res) => {
+  const { threadId } = req.params;
+  const { postId } = req.body;
+
+  if (!postId) {
+    return res.status(400).json({ error: "postId is missing" });
+  }
+
+  ThreadModel.findByIdAndUpdate(
+    threadId,
+    { $push: { posts: postId } },
+    { new: true }
+  )
+    .then((updatedThread) => {
+      if (!updatedThread) {
+        return res.status(404).json({ error: "Thread not found" });
+      }
+      res.status(200).json(updatedThread);
+    })
+    .catch((error) => {
+      res.status(500).json({ error: "Internal server error" });
+    });
+};
+
+
+
+
 // Delete a specific thread by ID
 threadsController.deleteThreadById = (req, res) => {
   const { threadId } = req.params;

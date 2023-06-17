@@ -16,6 +16,9 @@ router.get('/:threadId', threadsController.getThreadById);
 // Update a specific thread by ID
 router.put('/:threadId', authController.isAuthenticated, threadsController.updateThreadById);
 
+// Add a post to thread by ID
+router.put('/:threadId/newPost', authController.isAuthenticated, threadsController.addPostToThread);
+
 // Delete a specific thread by ID
 router.delete('/:threadId', authController.isAuthenticated, threadsController.deleteThreadById);
 

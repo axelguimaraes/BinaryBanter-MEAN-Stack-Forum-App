@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
   isLoggedIn: boolean = false;
   username$: BehaviorSubject<string> = new BehaviorSubject<string>('');
   showAddThreadButton: boolean = false;
-  userId!: string
+  userId!: string;
 
   constructor(
     private dialog: MatDialog,
@@ -86,7 +86,7 @@ export class AppComponent implements OnInit {
         this.isLoggedIn = false;
         this.username$.next('');
         window.location.reload();
-        this.showSnackbar('Logout successful!')
+        this.showSnackbar('Logout successful!');
       },
       (error: any) => {
         console.error('Logout error:', error);
@@ -99,17 +99,31 @@ export class AppComponent implements OnInit {
     this.isLoggedIn = !!token;
   }
 
+  /*
   openAddThreadDialog(): void {
     const dialogRef = this.dialog.open(AddThreadDialogComponent, {
+      width: '30%',
+      height: '70%',
     });
 
     dialogRef.afterClosed().subscribe((result: any) => {
       console.log('Dialog closed with result:', result);
     });
   }
+  */
+
+  openAddThreadDialog(): void {
+    const dialogRef = this.dialog.open(AddThreadDialogComponent, {
+      width: '400px',
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('The dialog was closed with: ', result);
+    })
+  }
 
   goToProfile() {
-    this.router.navigate(['/user', this.userId])
+    this.router.navigate(['/user', this.userId]);
   }
 
   showSnackbar(message: string) {

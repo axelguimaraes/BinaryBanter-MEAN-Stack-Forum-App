@@ -33,7 +33,7 @@
     </mat-form-field>
   </form>
 </mat-dialog-content>
-<mat-dialog-actions align="end">
+<mat-dialog-actions align="end" class="buttons">
   <button mat-button mat-dialog-close color="primary">Cancel</button>
   <button mat-button type="submit" color="primary" [disabled]="threadForm.invalid || tags.length === 0" (click)="onSubmit()">Add</button>
 </mat-dialog-actions>

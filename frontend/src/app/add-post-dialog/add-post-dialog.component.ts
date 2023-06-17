@@ -27,6 +27,7 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { map, startWith } from 'rxjs/operators';
+import { ThreadService } from '../services/thread.service';
 
 @Component({
   selector: 'app-add-post-dialog',
@@ -54,7 +55,8 @@ export class AddPostDialogComponent implements OnInit {
     private postsService: PostsService,
     private authService: AuthService,
     private formBuilder: FormBuilder,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private threadService: ThreadService
   ) {
     this.filteredTags = this.tagCtrl.valueChanges.pipe(
       startWith(null),
@@ -105,12 +107,29 @@ export class AddPostDialogComponent implements OnInit {
         console.log('Post created:', response);
         this.postsService.emitPostCreated();
         this.dialogRef.close();
+
+        const postId = response._id; // Extract the postId from the response
+
+        const updatedThread = {
+          postId: postId // Include the postId in the updatedThread object
+        };
+
+        this.threadService.addPostToThread(threadId, updatedThread).subscribe(
+          (response) => {
+            console.log('Post added to thread:', response);
+          },
+          (error) => {
+            console.error('Error adding post to thread:', error);
+          }
+        );
       },
       (error) => {
         console.error('Error creating post:', error);
       }
     );
   }
+
+
 
   add(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();
