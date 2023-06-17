@@ -1,4 +1,5 @@
 const ThreadModel = require("../models/thread.model");
+const PostModel = require("../models/post.model")
 
 let threadsController = {};
 
@@ -100,16 +101,35 @@ threadsController.addPostToThread = (req, res) => {
 // Delete a specific thread by ID
 threadsController.deleteThreadById = (req, res) => {
   const { threadId } = req.params;
-  ThreadModel.findByIdAndDelete(threadId)
-    .then((deletedThread) => {
-      if (!deletedThread) {
+
+  // Retrieve the posts associated with the thread
+  ThreadModel.findById(threadId)
+    .populate('posts')
+    .exec((err, thread) => {
+      if (err) {
+        return res.status(500).json({ error: "Internal server error" });
+      }
+      if (!thread) {
         return res.status(404).json({ error: "Thread not found" });
       }
-      res.status(200).json({ message: "Thread deleted successfully" });
-    })
-    .catch((error) => {
-      res.status(500).json({ error: "Internal server error" });
+
+      // Delete the associated posts
+      PostModel.deleteMany({ _id: { $in: thread.posts } })
+        .then(() => {
+          // Delete the thread
+          ThreadModel.findByIdAndDelete(threadId)
+            .then(() => {
+              res.status(200).json({ message: "Thread deleted successfully" });
+            })
+            .catch((error) => {
+              res.status(500).json({ error: "Internal server error" });
+            });
+        })
+        .catch((error) => {
+          res.status(500).json({ error: "Internal server error" });
+        });
     });
 };
+
 
 module.exports = threadsController
