@@ -111,7 +111,7 @@ export class AddPostDialogComponent implements OnInit {
         const postId = response._id; // Extract the postId from the response
 
         const updatedThread = {
-          postId: postId // Include the postId in the updatedThread object
+          postId: postId, // Include the postId in the updatedThread object
         };
 
         this.threadService.addPostToThread(threadId, updatedThread).subscribe(
@@ -129,29 +129,25 @@ export class AddPostDialogComponent implements OnInit {
     );
   }
 
-
-
-  add(event: MatChipInputEvent): void {
+  addChip(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();
 
-    // Add our fruit
     if (value) {
       this.tags.push(value);
     }
 
-    // Clear the input value
     event.chipInput!.clear();
 
     this.tagCtrl.setValue(null);
   }
 
-  remove(fruit: string): void {
-    const index = this.tags.indexOf(fruit);
+  removeChip(chip: string): void {
+    const index = this.tags.indexOf(chip);
 
     if (index >= 0) {
       this.tags.splice(index, 1);
 
-      this.announcer.announce(`Removed ${fruit}`);
+      this.announcer.announce(`Removed ${chip}`);
     }
   }
 

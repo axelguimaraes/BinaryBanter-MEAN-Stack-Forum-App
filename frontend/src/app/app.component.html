@@ -1,6 +1,8 @@
 <mat-toolbar color="primary">
   <div class="left-section">
-    <span class="title">>_ binary_banter</span>
+    <div class="logo-container">
+      <img [src]="logoImageUrl" alt="App Logo" class="logo-img clickable" (click)="goHome()"/>
+    </div>
   </div>
   <div class="right-section">
     <ng-container *ngIf="!isLoggedIn; else loginSection">

@@ -36,3 +36,17 @@
 .add-thread-button {
   margin-left: 16px;
 }
+
+.logo-img {
+  height: 40px; /* Adjust the height as per your requirement */
+  width: auto; /* Maintain the aspect ratio */
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+
+.clickable {
+  cursor: pointer;
+}

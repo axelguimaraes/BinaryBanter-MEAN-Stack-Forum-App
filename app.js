@@ -25,6 +25,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors({ origin: 'http://localhost:4200', credentials: true }));
+app.use(express.static('public'));
 
 // ROUTES
 app.use('/api', indexRouter);
@@ -33,6 +34,13 @@ app.use('/api/post', postRouter);
 app.use('/api/thread', threadRouter)
 app.use('/api/user', userRouter)
 app.use('/api', indexRouter)
+
+
+// Logo
+app.get('/api/logo', (req, res) => {
+  const logoImageUrl = '/images/BinaryBanter.png'
+  res.json({logoImageUrl})
+})
 
 
 // catch 404 and forward to error handler

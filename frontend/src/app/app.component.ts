@@ -6,6 +6,8 @@ import { AddThreadDialogComponent } from './add-thread-dialog/add-thread-dialog.
 import { BehaviorSubject } from 'rxjs';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AppService } from './services/app.service';
+import { error } from 'console';
 
 @Component({
   selector: 'app-root',
@@ -18,10 +20,12 @@ export class AppComponent implements OnInit {
   username$: BehaviorSubject<string> = new BehaviorSubject<string>('');
   showAddThreadButton: boolean = false;
   userId!: string;
+  logoImageUrl!: string;
 
   constructor(
     private dialog: MatDialog,
     private authService: AuthService,
+    private appService: AppService,
     private router: Router,
     private route: ActivatedRoute,
     private snackBar: MatSnackBar
@@ -35,6 +39,15 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.appService.getAppLogoImageUrl().subscribe(
+      (response) => {
+        this.logoImageUrl = 'http://localhost:3000' + response.logoImageUrl;
+      },
+      (error) => {
+        console.error('Error fetching app logo image URL: ', error);
+      }
+    );
+
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         // Check if the current route is the home route
@@ -99,19 +112,6 @@ export class AppComponent implements OnInit {
     this.isLoggedIn = !!token;
   }
 
-  /*
-  openAddThreadDialog(): void {
-    const dialogRef = this.dialog.open(AddThreadDialogComponent, {
-      width: '30%',
-      height: '70%',
-    });
-
-    dialogRef.afterClosed().subscribe((result: any) => {
-      console.log('Dialog closed with result:', result);
-    });
-  }
-  */
-
   openAddThreadDialog(): void {
     const dialogRef = this.dialog.open(AddThreadDialogComponent, {
       width: '400px',
@@ -124,6 +124,10 @@ export class AppComponent implements OnInit {
 
   goToProfile() {
     this.router.navigate(['/user', this.userId]);
+  }
+
+  goHome() {
+    this.router.navigate(['/'])
   }
 
   showSnackbar(message: string) {

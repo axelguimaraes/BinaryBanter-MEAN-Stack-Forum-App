@@ -11,7 +11,7 @@
     <mat-form-field class="tags-chip-list" [class.error]="tagCtrl.invalid && tagCtrl.touched && tags.length === 0">
       <mat-label>Tags</mat-label>
       <mat-chip-grid #chipGrid aria-label="Tag selection">
-        <mat-chip-row *ngFor="let tag of tags" (removed)="remove(tag)">
+        <mat-chip-row *ngFor="let tag of tags" (removed)="removeChip(tag)">
           {{tag}}
           <button matChipRemove [attr.aria-label]="'remove ' + tag">
             <mat-icon>cancel</mat-icon>
@@ -20,7 +20,7 @@
       </mat-chip-grid>
       <input placeholder="New tag..." #tagInput [formControl]="tagCtrl" [matChipInputFor]="chipGrid"
         [matAutocomplete]="auto" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-        (matChipInputTokenEnd)="add($event)" required/>
+        (matChipInputTokenEnd)="addChip($event)" required/>
       <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
         <mat-option *ngFor="let tag of filteredTags | async" [value]="tag">
           {{tag}}
