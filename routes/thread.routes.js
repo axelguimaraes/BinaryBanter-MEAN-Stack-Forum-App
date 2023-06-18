@@ -19,6 +19,9 @@ router.put('/:threadId', authController.isAuthenticated, threadsController.updat
 // Add a post to thread by ID
 router.put('/:threadId/newPost', authController.isAuthenticated, threadsController.addPostToThread);
 
+// Delete a post from a thread by ID
+router.put('/:threadId/deletePost', authController.isAuthenticated, threadsController.deletePostFromThread);
+
 // Delete a specific thread by ID
 router.delete('/:threadId', authController.isAuthenticated, threadsController.deleteThreadById);
 

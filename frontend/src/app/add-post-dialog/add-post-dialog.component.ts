@@ -45,7 +45,7 @@ export class AddPostDialogComponent implements OnInit {
   allTags: string[] = ['LEI', 'LSIRC', 'Security', 'Development', 'Testing'];
 
   @ViewChild('fruitInput')
-  fruitInput!: ElementRef<HTMLInputElement>;
+  tagInput!: ElementRef<HTMLInputElement>;
 
   announcer = inject(LiveAnnouncer);
 
@@ -153,7 +153,7 @@ export class AddPostDialogComponent implements OnInit {
 
   selected(event: MatAutocompleteSelectedEvent): void {
     this.tags.push(event.option.viewValue);
-    this.fruitInput.nativeElement.value = '';
+    this.tagInput.nativeElement.value = '';
     this.tagCtrl.setValue(null);
   }
 

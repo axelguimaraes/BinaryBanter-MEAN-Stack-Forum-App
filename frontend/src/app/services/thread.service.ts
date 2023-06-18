@@ -31,15 +31,13 @@ export class ThreadService {
   }
 
   addPostToThread(threadId: string, newPost: any): Observable<any> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      }),
-      withCredentials: true
-    };
-
-    const payload = { postId: newPost.postId }; // Include postId in the payload
+    const payload = { postId: newPost.postId };
     return this.http.put(`${this.baseUrl}/${threadId}/newPost`, payload, { withCredentials: true });;
+  }
+
+  deletePostFromThread(threadId: string, post: any): Observable<any> {
+    const payload = { postId: post.postId };
+    return this.http.put(`${this.baseUrl}/${threadId}/deletePost`, payload, { withCredentials: true });;
   }
 
   deleteThreadById(threadId: string): Observable<any> {

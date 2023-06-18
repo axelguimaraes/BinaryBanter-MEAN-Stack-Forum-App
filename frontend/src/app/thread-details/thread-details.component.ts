@@ -10,6 +10,8 @@ import { AuthService } from '../services/auth.service';
 import { faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatChipsModule } from '@angular/material/chips';
+import { threadId } from 'worker_threads';
+import { error } from 'console';
 
 @Component({
   selector: 'app-thread-details',
@@ -105,18 +107,33 @@ export class ThreadDetailsComponent implements OnInit, OnDestroy {
   }
 
   deletePost(post: Post) {
-    this.postsService.deletePost(post._id).subscribe(
+    const updatedThread = {
+      postId: post._id
+    }
+
+    this.threadService.deletePostFromThread(this.thread._id, updatedThread).subscribe(
       (response) => {
-        console.log('Post deleted:', response);
-        this.fetchPostsForThread(); // Fetch the updated list of posts
-        this.showSnackbar('Post deleted successfully!')
+        console.log('Post deleted from thread:', response);
+
+        this.postsService.deletePost(post._id).subscribe(
+          (response) => {
+            console.log('Post deleted:', response);
+            this.fetchPostsForThread(); // Fetch the updated list of posts
+            this.showSnackbar('Post deleted successfully!');
+          },
+          (error) => {
+            this.showSnackbar('Error deleting post!');
+            console.error('Error deleting post:', error);
+          }
+        );
       },
       (error) => {
-        this.showSnackbar('Error deleting post!')
-        console.error('Error deleting post:', error);
+        console.error('Error deleting post from thread:', error);
       }
     );
   }
+
+
 
   deleteThread() {
     this.threadService.deleteThreadById(this.thread._id).subscribe(
