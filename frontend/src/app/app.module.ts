@@ -16,6 +16,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatMenuModule } from '@angular/material/menu';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -29,6 +30,8 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import { ConfirmationDialogComponent } from './user-profile/confirmation-dialog/confirmation-dialog.component';
 import { EditProfileDialogComponent } from './user-profile/edit-profile-dialog/edit-profile-dialog.component';
 import { ChangePasswordDialogComponent } from './user-profile/change-password-dialog/change-password-dialog.component';
+import { SearchTagsDialogComponent } from './search-tags-dialog/search-tags-dialog.component';
+import { SearchResultsComponent } from './search-results/search-results.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +45,8 @@ import { ChangePasswordDialogComponent } from './user-profile/change-password-di
     ConfirmationDialogComponent,
     EditProfileDialogComponent,
     ChangePasswordDialogComponent,
+    SearchTagsDialogComponent,
+    SearchResultsComponent,
   ],
   imports: [
     BrowserModule,
@@ -63,6 +68,7 @@ import { ChangePasswordDialogComponent } from './user-profile/change-password-di
     MatAutocompleteModule,
     MatPaginatorModule,
     MatMenuModule,
+    MatCheckboxModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

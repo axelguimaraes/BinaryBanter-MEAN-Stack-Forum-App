@@ -1,0 +1,45 @@
+<div class="back-button-container">
+  <button mat-icon-button color="primary" (click)="goBack()" class="back-button">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+  <span class="go-back-text">Go back</span>
+</div>
+
+<ng-container *ngIf="posts.length > 0; else noResults">
+  <div class="search-sentence">
+    <p>Search results</p>
+  </div>
+  <div class="card-container">
+    <mat-card class="post-card" *ngFor="let post of posts">
+      <mat-card-header>
+        <div class="post-card-title">
+          <mat-card-title>{{ post.title }}</mat-card-title>
+          <div class="post-author">by {{ post.author }}</div>
+        </div>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="post-content">
+          <p>{{ post.content }}</p>
+          <mat-chip-listbox class="tags-chip-select" [selectable]="false" *ngFor="let tag of post.tags">
+            <mat-chip-option>{{tag}}</mat-chip-option>
+          </mat-chip-listbox>
+
+          <p>Created At: {{ post.createdAt | date }}</p>
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button color="accent" (click)="goToThread(post.thread._id)">Go to Thread
+          <mat-icon class="thread-meta-icon">forum</mat-icon>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</ng-container>
+
+<ng-template #noResults>
+  <mat-card class="no-posts-card">
+    <mat-card-content>
+      <p>No posts found with the selected tags.</p>
+    </mat-card-content>
+  </mat-card>
+</ng-template>

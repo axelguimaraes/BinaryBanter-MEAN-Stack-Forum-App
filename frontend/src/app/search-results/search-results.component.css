@@ -1,0 +1,52 @@
+.back-button-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+  margin-top: 16px;
+  margin-left: 120px;
+}
+
+.go-back-text {
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.54);
+}
+
+.no-posts-card {
+  margin: 16px 120px;
+}
+
+.post-card {
+  margin: 16px 120px;
+}
+
+.post-author {
+  font-size: 0.8rem;
+  color: rgba(0, 0, 0, 0.54);
+  margin-left: 10px;
+}
+
+.post-card-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.post-content {
+  width: 100%;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+}
+
+.scroll-top-button {
+  position: fixed;
+  bottom: 64px;
+  right: 16px;
+  z-index: 4;
+}
+
+.search-sentence {
+  margin-left: 120px;
+  margin-top: 32px;
+  font-size: 20px;
+}

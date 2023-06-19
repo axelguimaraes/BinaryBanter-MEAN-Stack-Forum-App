@@ -77,6 +77,18 @@ export class ThreadDetailsComponent implements OnInit, OnDestroy {
         (post: { thread: { _id: string } }) =>
           post.thread._id === this.thread._id
       );
+
+      // Convert tags to 'Fisica Aplicada' format
+      this.posts.forEach((post) => {
+        post.tags = post.tags.map((tag: string) => {
+          const words = tag.split('_');
+          return words.map((word) => {
+            const lowercaseWord = word.toLowerCase();
+            return lowercaseWord.charAt(0).toUpperCase() + lowercaseWord.slice(1);
+          }).join(' ');
+        });
+      });
+
       console.log(this.posts);
     });
   }

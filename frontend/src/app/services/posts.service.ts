@@ -1,12 +1,12 @@
 import { Injectable, EventEmitter } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PostsService {
-  private readonly API_URL = 'http://localhost:3000/api/post/';
+  private readonly API_URL = 'http://localhost:3000/api/post';
 
   constructor(private http: HttpClient) { }
 
@@ -41,6 +41,12 @@ export class PostsService {
   deletePost(postId: string): Observable<any> {
     const url = `${this.API_URL}/${postId}`;
     return this.http.delete<any>(url, { withCredentials: true }); // Include 'withCredentials' to send cookies
+  }
+
+  searchPostsByTags(tags: string[]): Observable<any> {
+    const url = `${this.API_URL}/searchByTags`;
+    const params = new HttpParams().set('tags', tags.join(',')); // Join the tags array with comma separator
+    return this.http.get<any>(url, { params, withCredentials: true });
   }
 
   emitPostCreated() {

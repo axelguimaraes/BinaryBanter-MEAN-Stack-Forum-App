@@ -7,7 +7,8 @@ import { BehaviorSubject } from 'rxjs';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AppService } from './services/app.service';
-import { error } from 'console';
+import { SearchTagsDialogComponent } from './search-tags-dialog/search-tags-dialog.component';
+import { Post } from './models/post.model';
 
 @Component({
   selector: 'app-root',
@@ -28,7 +29,7 @@ export class AppComponent implements OnInit {
     private appService: AppService,
     private router: Router,
     private route: ActivatedRoute,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
   ) {
     this.checkedLoggedInStatus();
     const storedUsername = localStorage.getItem('username');
@@ -121,6 +122,19 @@ export class AppComponent implements OnInit {
       console.log('The dialog was closed with: ', result);
     })
   }
+
+  openSearchByTagsDialog(): void {
+    const dialogRef = this.dialog.open(SearchTagsDialogComponent, {
+      width: '400px',
+    });
+
+    dialogRef.afterClosed().subscribe((result: Post[]) => {
+      if (result) {
+        this.router.navigate(['/searchResults'], { state: { posts: result } });
+      }
+    });
+  }
+
 
   goToProfile() {
     this.router.navigate(['/user', this.userId]);

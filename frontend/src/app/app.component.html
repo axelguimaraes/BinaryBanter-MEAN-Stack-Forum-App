@@ -33,8 +33,8 @@
 </mat-toolbar>
 
 <div class="add-thread-button-container" *ngIf="isLoggedIn && showAddThreadButton">
-  <button mat-raised-button color="primary" class="add-thread-button" (click)="openAddThreadDialog()">Add
-    Thread</button>
+  <button mat-raised-button color="primary" class="add-thread-button" (click)="openAddThreadDialog()">Add Thread</button>
+  <button mat-button color="accent" class="search-tags-button" (click)="openSearchByTagsDialog()">Search by Tags</button>
 </div>
 
 <router-outlet></router-outlet>

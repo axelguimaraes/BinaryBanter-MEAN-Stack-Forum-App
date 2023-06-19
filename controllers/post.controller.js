@@ -146,5 +146,24 @@ postController.downvotePost = (req, res) => {
     });
 };
 
+// Search posts by tags
+postController.searchPostsByTags = (req, res) => {
+  const tags = req.query.tags; // Get the tags directly from the query
+
+  PostModel.find({ tags: { $regex: tags, $options: "i" } })
+    .populate("thread", "name")
+    .then((posts) => {
+      if (!posts || posts.length === 0) {
+        return res.status(404).json({ error: "No posts found" });
+      }
+      res.status(200).json(posts);
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).json({ error: "Internal server error" });
+    });
+};
+
+
 
 module.exports = postController;
