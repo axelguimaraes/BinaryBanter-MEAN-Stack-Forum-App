@@ -69,24 +69,27 @@ export class ThreadDetailsComponent implements OnInit, OnDestroy {
 
   fetchPostsForThread() {
     this.postsService.getPosts().subscribe((response) => {
-      this.posts = response.filter(
-        (post: { thread: { _id: string } }) =>
-          post.thread._id === this.thread._id
-      );
+      this.posts = response
+        .filter((post: { thread: { _id: string } }) => post.thread._id === this.thread._id)
+        .sort((a: { createdAt: string }, b: { createdAt: string }) => {
+          // Sort posts based on creation date in descending order
+          return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+        });
 
       this.posts.forEach((post) => {
         post.tags = post.tags.map((tag: string) => {
           const words = tag.split('_');
-          return words.map((word) => {
-            const lowercaseWord = word.toLowerCase();
-            return lowercaseWord.charAt(0).toUpperCase() + lowercaseWord.slice(1);
-          }).join(' ');
+          return words
+            .map((word) => {
+              const lowercaseWord = word.toLowerCase();
+              return lowercaseWord.charAt(0).toUpperCase() + lowercaseWord.slice(1);
+            })
+            .join(' ');
         });
       });
-
-      console.log(this.posts);
     });
   }
+
 
   goBack() {
     this.router.navigate(['../']);

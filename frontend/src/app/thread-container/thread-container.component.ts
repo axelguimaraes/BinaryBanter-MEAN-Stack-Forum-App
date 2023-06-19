@@ -49,7 +49,10 @@ export class ThreadContainerComponent implements OnInit, OnDestroy {
   fetchThreads(): void {
     this.threadService.getAllThreads().subscribe(
       (threads: Thread[]) => {
-        this.threads = threads;
+        this.threads = threads.sort((a, b) => {
+          // Sort threads based on creation date in descending order
+          return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+        });
       },
       (error: any) => {
         console.error('Error fetching threads:', error);
