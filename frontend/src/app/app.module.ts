@@ -33,6 +33,7 @@ import { ChangePasswordDialogComponent } from './user-profile/change-password-di
 import { SearchTagsDialogComponent } from './search-tags-dialog/search-tags-dialog.component';
 import { SearchResultsComponent } from './search-results/search-results.component';
 import { EditThreadDialogComponent } from './edit-thread-dialog/edit-thread-dialog.component';
+import { EditPostDialogComponent } from './edit-post-dialog/edit-post-dialog.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { EditThreadDialogComponent } from './edit-thread-dialog/edit-thread-dial
     SearchTagsDialogComponent,
     SearchResultsComponent,
     EditThreadDialogComponent,
+    EditPostDialogComponent,
   ],
   imports: [
     BrowserModule,

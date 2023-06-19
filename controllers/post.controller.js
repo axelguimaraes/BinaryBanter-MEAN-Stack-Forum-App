@@ -63,11 +63,11 @@ postController.getPostById = (req, res) => {
 // Update a specific post by ID
 postController.updatePost = (req, res) => {
   const postId = req.params.id;
-  const { title, content, thread, image } = req.body;
+  const { title, content, tags } = req.body;
 
   PostModel.findByIdAndUpdate(
     postId,
-    { title, content, thread, image },
+    { title, content, tags },
     { new: true }
   )
     .then((updatedPost) => {

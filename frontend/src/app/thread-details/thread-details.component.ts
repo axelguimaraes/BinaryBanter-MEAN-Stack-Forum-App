@@ -10,6 +10,7 @@ import { AuthService } from '../services/auth.service';
 import { faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { EditThreadDialogComponent } from '../edit-thread-dialog/edit-thread-dialog.component';
+import { EditPostDialogComponent } from '../edit-post-dialog/edit-post-dialog.component';
 
 @Component({
   selector: 'app-thread-details',
@@ -132,8 +133,24 @@ export class ThreadDetailsComponent implements OnInit, OnDestroy {
   }
 
   editPost(post: Post) {
-    this.router.navigate(['/edit-post', post._id]);
+    const dialogRef = this.dialog.open(EditPostDialogComponent, {
+      width: '400px',
+      data: {
+        postId: post._id,
+        title: post.title,
+        content: post.content,
+        tags: post.tags
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        console.log('Post edited:', result);
+        this.fetchPostsForThread();
+      }
+    });
   }
+
 
   deletePost(post: Post) {
     const updatedThread = {
