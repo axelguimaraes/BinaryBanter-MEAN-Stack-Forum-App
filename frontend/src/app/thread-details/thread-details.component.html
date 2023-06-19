@@ -62,7 +62,7 @@
         <button mat-icon-button color="primary" class="post-vote-button" (click)="upvotePost(post)">
           <fa-icon [icon]="faArrowUp"></fa-icon>
         </button>
-        <div class="post-vote-count">{{ post.upvotes }}</div>
+        <div class="post-vote-count">{{ post.upvotes - post.downvotes }}</div>
         <button mat-icon-button color="primary" class="post-vote-button" (click)="downvotePost(post)">
           <fa-icon [icon]="faArrowDown"></fa-icon>
         </button>
