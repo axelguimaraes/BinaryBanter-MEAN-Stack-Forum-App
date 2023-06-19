@@ -9,6 +9,7 @@ import { PostsService } from '../services/posts.service';
 import { AuthService } from '../services/auth.service';
 import { faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { EditThreadDialogComponent } from '../edit-thread-dialog/edit-thread-dialog.component';
 
 @Component({
   selector: 'app-thread-details',
@@ -93,6 +94,25 @@ export class ThreadDetailsComponent implements OnInit, OnDestroy {
 
   goBack() {
     this.router.navigate(['../']);
+  }
+
+  editThread() {
+    const dialogRef = this.dialog.open(EditThreadDialogComponent, {
+      width: '400px',
+      data: {
+        description: this.thread.description
+      }
+    })
+
+    dialogRef.afterClosed().subscribe((updatedThread) => {
+      if (updatedThread) {
+        console.log('Thread edited: ', updatedThread)
+        this.threadService.updateThreadById(this.thread._id, updatedThread).subscribe(()=>{
+          window.location.reload()
+          this.showSnackbar('Thread edited successfully!')
+        })
+      }
+    })
   }
 
   addPost() {

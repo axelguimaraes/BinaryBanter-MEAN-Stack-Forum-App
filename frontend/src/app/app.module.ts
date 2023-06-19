@@ -32,6 +32,7 @@ import { EditProfileDialogComponent } from './user-profile/edit-profile-dialog/e
 import { ChangePasswordDialogComponent } from './user-profile/change-password-dialog/change-password-dialog.component';
 import { SearchTagsDialogComponent } from './search-tags-dialog/search-tags-dialog.component';
 import { SearchResultsComponent } from './search-results/search-results.component';
+import { EditThreadDialogComponent } from './edit-thread-dialog/edit-thread-dialog.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { SearchResultsComponent } from './search-results/search-results.componen
     ChangePasswordDialogComponent,
     SearchTagsDialogComponent,
     SearchResultsComponent,
+    EditThreadDialogComponent,
   ],
   imports: [
     BrowserModule,

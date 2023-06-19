@@ -26,7 +26,7 @@ export class ThreadService {
   }
 
   updateThreadById(threadId: string, threadData: any): Observable<any> {
-    return this.http.put(`${this.baseUrl}/${threadId}`, threadData);
+    return this.http.put(`${this.baseUrl}/${threadId}`, threadData, {withCredentials: true});
   }
 
   addPostToThread(threadId: string, newPost: any): Observable<any> {

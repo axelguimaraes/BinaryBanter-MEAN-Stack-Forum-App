@@ -19,6 +19,9 @@
     <div class="thread-card-title">
       <mat-card-title>{{ thread.name }}</mat-card-title>
       <div class="thread-author">by {{ thread.author }}</div>
+      <button mat-icon-button color="primary" *ngIf="thread.createdBy === loggedInUserId" (click)="editThread()">
+        <mat-icon>edit</mat-icon>
+      </button>
     </div>
   </mat-card-header>
   <mat-card-content>
