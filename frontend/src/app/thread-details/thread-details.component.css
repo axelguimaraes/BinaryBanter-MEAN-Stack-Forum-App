@@ -82,8 +82,8 @@
 
 .vote-icons {
   display: flex;
-  align-items: center; /* Vertically center align the items */
-  gap: 6px; /* Adjust the gap between the icons as needed */
+  align-items: center;
+  gap: 6px;
 }
 
 .post-vote-count {
@@ -109,5 +109,5 @@
   position: fixed;
   bottom: 64px;
   right: 16px;
-  z-index: 4; /* Update the z-index value */
+  z-index: 4;
 }

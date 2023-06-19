@@ -2,6 +2,10 @@ import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { Thread } from '../models/thread.model';
 import { ThreadService } from '../services/thread.service';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatDialog } from '@angular/material/dialog';
+import { SearchTagsDialogComponent } from '../search-tags-dialog/search-tags-dialog.component';
+import { Post } from '../models/post.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-thread-container',
@@ -15,7 +19,7 @@ export class ThreadContainerComponent implements OnInit, OnDestroy {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private threadService: ThreadService) {}
+  constructor(private threadService: ThreadService, private dialog: MatDialog, private router: Router) {}
 
   ngOnInit(): void {
     this.fetchThreads();
@@ -51,5 +55,17 @@ export class ThreadContainerComponent implements OnInit, OnDestroy {
         console.error('Error fetching threads:', error);
       }
     );
+  }
+
+  openSearchByTagsDialog(): void {
+    const dialogRef = this.dialog.open(SearchTagsDialogComponent, {
+      width: '400px',
+    });
+
+    dialogRef.afterClosed().subscribe((result: Post[]) => {
+      if (result) {
+        this.router.navigate(['/searchResults'], { state: { posts: result } });
+      }
+    });
   }
 }

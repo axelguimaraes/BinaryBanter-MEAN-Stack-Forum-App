@@ -2,7 +2,6 @@ import { Injectable, EventEmitter } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
-import { Thread } from '../models/thread.model';
 
 @Injectable({
   providedIn: 'root',

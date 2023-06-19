@@ -9,7 +9,7 @@
 }
 
 .spacer {
-  margin: 16px; /* Adjust the value to your desired spacing */
+  margin: 16px;
 }
 
 .thread-meta {
@@ -26,7 +26,7 @@
 
 .thread-author {
   font-size: 0.8rem;
-  color: rgba(0, 0, 0, 0.54); /* Set the color to a dimmer shade */
+  color: rgba(0, 0, 0, 0.54);
   margin-left: 10px;
 }
 
@@ -49,9 +49,13 @@
   position: fixed;
   bottom: 64px;
   right: 16px;
-  z-index: 4; /* Update the z-index value */
+  z-index: 4;
 }
 
 .post-count-label {
   margin-left: 5px;
+}
+
+.search-tags-button {
+  margin-left: 16px;
 }

@@ -9,9 +9,6 @@ import { PostsService } from '../services/posts.service';
 import { AuthService } from '../services/auth.service';
 import { faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatChipsModule } from '@angular/material/chips';
-import { threadId } from 'worker_threads';
-import { error } from 'console';
 
 @Component({
   selector: 'app-thread-details',
@@ -72,13 +69,11 @@ export class ThreadDetailsComponent implements OnInit, OnDestroy {
 
   fetchPostsForThread() {
     this.postsService.getPosts().subscribe((response) => {
-      // Filter the posts based on the thread ID
       this.posts = response.filter(
         (post: { thread: { _id: string } }) =>
           post.thread._id === this.thread._id
       );
 
-      // Convert tags to 'Fisica Aplicada' format
       this.posts.forEach((post) => {
         post.tags = post.tags.map((tag: string) => {
           const words = tag.split('_');
@@ -94,7 +89,7 @@ export class ThreadDetailsComponent implements OnInit, OnDestroy {
   }
 
   goBack() {
-    this.router.navigate(['../']); // Navigate to the previous page
+    this.router.navigate(['../']);
   }
 
   addPost() {
@@ -114,7 +109,6 @@ export class ThreadDetailsComponent implements OnInit, OnDestroy {
   }
 
   editPost(post: Post) {
-    // Navigate to the edit post page passing the post ID
     this.router.navigate(['/edit-post', post._id]);
   }
 
@@ -130,8 +124,7 @@ export class ThreadDetailsComponent implements OnInit, OnDestroy {
         this.postsService.deletePost(post._id).subscribe(
           (response) => {
             console.log('Post deleted:', response);
-            this.fetchPostsForThread(); // Fetch the updated list of posts
-            this.showSnackbar('Post deleted successfully!');
+            this.fetchPostsForThread();             this.showSnackbar('Post deleted successfully!');
           },
           (error) => {
             this.showSnackbar('Error deleting post!');

@@ -1,7 +1,7 @@
 <mat-toolbar color="primary">
   <div class="left-section">
     <div class="logo-container">
-      <img [src]="logoImageUrl" alt="App Logo" class="logo-img clickable" (click)="goHome()"/>
+      <img [src]="logoImageUrl" alt="App Logo" class="logo-img clickable" (click)="goHome()" />
     </div>
   </div>
   <div class="right-section">
@@ -32,9 +32,9 @@
   </div>
 </mat-toolbar>
 
-<div class="add-thread-button-container" *ngIf="isLoggedIn && showAddThreadButton">
-  <button mat-raised-button color="primary" class="add-thread-button" (click)="openAddThreadDialog()">Add Thread</button>
-  <button mat-button color="accent" class="search-tags-button" (click)="openSearchByTagsDialog()">Search by Tags</button>
+<div class="add-thread-button-container">
+  <button mat-raised-button color="primary" class="add-thread-button" *ngIf="isLoggedIn && showAddThreadButton"
+    (click)="openAddThreadDialog()">Add Thread</button>
 </div>
 
 <router-outlet></router-outlet>

@@ -38,8 +38,8 @@
 }
 
 .logo-img {
-  height: 40px; /* Adjust the height as per your requirement */
-  width: auto; /* Maintain the aspect ratio */
+  height: 40px;
+  width: auto;
 }
 
 .logo-container {
@@ -49,4 +49,8 @@
 
 .clickable {
   cursor: pointer;
+}
+
+.search-tags-button {
+  margin-left: 16px;
 }

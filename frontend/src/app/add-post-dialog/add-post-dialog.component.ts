@@ -14,14 +14,12 @@ import {
   FormGroup,
   Validators,
   FormControl,
-  FormsModule,
-  ReactiveFormsModule,
 } from '@angular/forms';
 import {
   MatAutocompleteSelectedEvent,
   MatAutocompleteModule,
 } from '@angular/material/autocomplete';
-import { MatChipInputEvent, MatChipsModule } from '@angular/material/chips';
+import { MatChipInputEvent } from '@angular/material/chips';
 import { Observable } from 'rxjs';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -43,55 +41,54 @@ export class AddPostDialogComponent implements OnInit {
   filteredTags: Observable<string[]>;
   tags: string[] = [];
   allTags: string[] = [
-    "LEI",
-    "LSIRC",
-    "Algebra Linear e Geometria Analitica",
-    "Fisica Aplicada",
-    "Fundamentos de Programacao",
-    "Introducao aos Sistemas Computacionais",
-    "Laboratorio de Programacao",
-    "Engenharia de Software I",
-    "Matematica Computacional I",
-    "Matematica Discreta",
-    "Paradigmas de Programacao",
-    "Sistemas Digitais e Arquitetura de Computadores",
-    "Engenharia de Software II",
-    "Estruturas de Dados",
-    "Matematica Computacional II",
-    "Processamento Estruturado de Informacao",
-    "Sistemas Operativos",
-    "Analise Algoritmica e Otimizacao",
-    "Bases de Dados",
-    "Gestao de Projetos Informaticos",
-    "Programacao em Ambiente Web",
-    "Redes de Computadores",
-    "Administracao de Sistemas Informaticos",
-    "Computacao Movel e Ubiqua",
-    "Laboratorio de Desenvolvimento de Software",
-    "Sistemas de Informacao",
-    "Sistemas Distribuidos",
-    "Inteligencia Artificial",
-    "Projeto Final",
-    "Sistemas de Informacao Organizacionais",
-    "Ciencias Empresariais (opcional)",
-    "Nocoes de Gestao (opcional)",
-    "Psicossociologia do Trabalho (opcional)",
-    "Tecnicas de Informacao e Comunicacao (opcional)",
-    "Etica e Legislacao Informatica",
-    "Ingles Tecnico",
-    "Seguranca Informatica",
-    "Analise Forense Digital",
-    "Redes de Computadores II",
-    "Criptografia Aplicada",
-    "Projecao e Planeamento de Redes",
-    "Seguranca de Redes",
-    "Sistemas Criticos",
-    "Sistemas de Gestao de Seguranca da Informacao",
-    "Testes de Penetracao e Hacking Etico",
-    "Auditoria Informatica",
-    "Programacao Segura"
+    'LEI',
+    'LSIRC',
+    'Algebra Linear e Geometria Analitica',
+    'Fisica Aplicada',
+    'Fundamentos de Programacao',
+    'Introducao aos Sistemas Computacionais',
+    'Laboratorio de Programacao',
+    'Engenharia de Software I',
+    'Matematica Computacional I',
+    'Matematica Discreta',
+    'Paradigmas de Programacao',
+    'Sistemas Digitais e Arquitetura de Computadores',
+    'Engenharia de Software II',
+    'Estruturas de Dados',
+    'Matematica Computacional II',
+    'Processamento Estruturado de Informacao',
+    'Sistemas Operativos',
+    'Analise Algoritmica e Otimizacao',
+    'Bases de Dados',
+    'Gestao de Projetos Informaticos',
+    'Programacao em Ambiente Web',
+    'Redes de Computadores',
+    'Administracao de Sistemas Informaticos',
+    'Computacao Movel e Ubiqua',
+    'Laboratorio de Desenvolvimento de Software',
+    'Sistemas de Informacao',
+    'Sistemas Distribuidos',
+    'Inteligencia Artificial',
+    'Projeto Final',
+    'Sistemas de Informacao Organizacionais',
+    'Ciencias Empresariais (opcional)',
+    'Nocoes de Gestao (opcional)',
+    'Psicossociologia do Trabalho (opcional)',
+    'Tecnicas de Informacao e Comunicacao (opcional)',
+    'Etica e Legislacao Informatica',
+    'Ingles Tecnico',
+    'Seguranca Informatica',
+    'Analise Forense Digital',
+    'Redes de Computadores II',
+    'Criptografia Aplicada',
+    'Projecao e Planeamento de Redes',
+    'Seguranca de Redes',
+    'Sistemas Criticos',
+    'Sistemas de Gestao de Seguranca da Informacao',
+    'Testes de Penetracao e Hacking Etico',
+    'Auditoria Informatica',
+    'Programacao Segura',
   ];
-
 
   @ViewChild('fruitInput')
   tagInput!: ElementRef<HTMLInputElement>;
@@ -117,7 +114,7 @@ export class AddPostDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.threadForm = this.formBuilder.group({
-      selectedToppings: new FormControl(this.tags)
+      selectedToppings: new FormControl(this.tags),
     });
     this.createThreadForm();
     this.fetchAuthor();
@@ -181,22 +178,22 @@ export class AddPostDialogComponent implements OnInit {
     );
   }
 
-
   addChip(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();
-    const existingTag = this.allTags.find(tag => tag.toLowerCase() === value.toLowerCase());
+    const existingTag = this.allTags.find(
+      (tag) => tag.toLowerCase() === value.toLowerCase()
+    );
 
     if (existingTag && !this.tags.includes(existingTag)) {
       this.tags.push(existingTag);
       this.announcer.announce(`Added ${existingTag}`);
     } else {
-      this.showSnackbar('Please select a valid tag!')
+      this.showSnackbar('Please select a valid tag!');
     }
 
     event.chipInput!.clear();
     this.tagCtrl.setValue(null);
   }
-
 
   removeChip(chip: string): void {
     const index = this.tags.indexOf(chip);
@@ -227,5 +224,4 @@ export class AddPostDialogComponent implements OnInit {
       duration: 5000,
     });
   }
-
 }

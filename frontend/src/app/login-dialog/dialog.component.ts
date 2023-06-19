@@ -1,5 +1,11 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators, ValidationErrors } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+  ValidationErrors,
+} from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { AuthService } from '../services/auth.service';
@@ -54,11 +60,10 @@ export class DialogComponent implements OnInit {
         const email = this.registerForm.get('email')!.value;
         const password = this.registerForm.get('password')!.value;
 
-        // Rearrange the payload object
         const payload = {
           username: username,
           email: email,
-          password: password
+          password: password,
         };
 
         this.authService.register(payload).subscribe({
@@ -72,7 +77,7 @@ export class DialogComponent implements OnInit {
           },
           error: (error: any) => {
             alert('Registration error');
-          }
+          },
         });
       }
     } else {
@@ -83,14 +88,13 @@ export class DialogComponent implements OnInit {
         this.authService.login(email, password).subscribe({
           next: (response: any) => {
             if (response && response.token) {
-              // Store the token as a cookie
               document.cookie = `auth-token=${response.token}; max-age=3600; path=/;`;
               localStorage.setItem('authToken', response.token);
 
               const result = {
                 isLoggedIn: true,
               };
-              this.showSnackbar('Login successful!')
+              this.showSnackbar('Login successful!');
 
               this.dialogRef.close(result);
             } else {
@@ -99,15 +103,16 @@ export class DialogComponent implements OnInit {
           },
           error: (error: any) => {
             alert('Login error');
-          }
+          },
         });
       }
     }
   }
 
-
   getErrorMessage(formControlName: string) {
-    const formControl = this.isRegisterForm ? this.registerForm.get(formControlName) : this.loginForm.get(formControlName);
+    const formControl = this.isRegisterForm
+      ? this.registerForm.get(formControlName)
+      : this.loginForm.get(formControlName);
 
     if (formControl && formControl.hasError('required')) {
       return 'Field is required';
@@ -125,9 +130,9 @@ export class DialogComponent implements OnInit {
     return '';
   }
 
-  customAsyncValidator(control: FormControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> {
-    // Perform your async validation logic here
-    // Example: Simulate async validation that resolves after 2 seconds
+  customAsyncValidator(
+    control: FormControl
+  ): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> {
     return new Promise((resolve) => {
       setTimeout(() => {
         if (control.value === 'password123') {

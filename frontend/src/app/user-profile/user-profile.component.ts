@@ -41,15 +41,22 @@ export class UserProfileComponent implements OnInit {
 
       dialogRef.afterClosed().subscribe((updatedProfile) => {
         if (updatedProfile) {
-          // Handle the updated profile data if needed
           console.log(updatedProfile);
-          this.userService.updateUserProfile(updatedProfile.username, updatedProfile.email, this.userId).subscribe(() => {
-            this.authService.logout();
-            this.clearCookies();
-            this.clearLocalStorage();
-            this.router.navigate(['/']);
-            this.showSnackbar('Profile edited successfully! Please login again to implement changes.');
-          })
+          this.userService
+            .updateUserProfile(
+              updatedProfile.username,
+              updatedProfile.email,
+              this.userId
+            )
+            .subscribe(() => {
+              this.authService.logout();
+              this.clearCookies();
+              this.clearLocalStorage();
+              this.router.navigate(['/']);
+              this.showSnackbar(
+                'Profile edited successfully! Please login again to implement changes.'
+              );
+            });
         }
       });
     });
@@ -63,13 +70,17 @@ export class UserProfileComponent implements OnInit {
 
       dialogRef.afterClosed().subscribe((updatedProfile) => {
         if (updatedProfile) {
-          this.userService.changePassword(updatedProfile, this.userId).subscribe(() => {
-            this.authService.logout();
-            this.clearCookies();
-            this.clearLocalStorage();
-            this.router.navigate(['/']);
-            this.showSnackbar('Password changed successfully! Please login again to implement changes.');
-          })
+          this.userService
+            .changePassword(updatedProfile, this.userId)
+            .subscribe(() => {
+              this.authService.logout();
+              this.clearCookies();
+              this.clearLocalStorage();
+              this.router.navigate(['/']);
+              this.showSnackbar(
+                'Password changed successfully! Please login again to implement changes.'
+              );
+            });
         }
       });
     });

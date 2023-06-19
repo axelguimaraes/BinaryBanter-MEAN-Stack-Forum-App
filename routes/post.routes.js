@@ -14,7 +14,7 @@ router.post('/', authController.isAuthenticated, postController.createPost);
 router.put('/:id', authController.isAuthenticated, postController.updatePost);
 
 // Search posts by tags
-router.get('/searchByTags',authController.isAuthenticated, postController.searchPostsByTags);
+router.get('/searchByTags', postController.searchPostsByTags);
 
 // Get a specific post by ID for a specific thread
 router.get('/:postId', postController.getPostById);
@@ -27,7 +27,6 @@ router.put('/:id/upvote', authController.isAuthenticated, postController.upvoteP
 
 // Downvote a post
 router.put('/:id/downvote', authController.isAuthenticated, postController.downvotePost);
-
 
 
 module.exports = router;

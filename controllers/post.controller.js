@@ -1,12 +1,8 @@
 const PostModel = require("../models/post.model");
-const jwt = require('jsonwebtoken');
-const config = require("../jwt/config");
-
 const postController = {};
 
 // Get all posts
 postController.getAllPosts = (req, res) => {
-  console.log('Retrieving posts');
   PostModel.find()
     .populate("thread", "name")
     .then((posts) => {
@@ -32,10 +28,9 @@ postController.createPost = (req, res) => {
     createdBy: req.userId,
     author,
     image: image || null,
-    tags: tags || null
+    tags: tags || null,
   });
 
-  console.log(post)
   post
     .save()
     .then((createdPost) => {
@@ -108,11 +103,7 @@ postController.deletePost = (req, res) => {
 postController.upvotePost = (req, res) => {
   const postId = req.params.id;
 
-  PostModel.findByIdAndUpdate(
-    postId,
-    { $inc: { upvotes: 1 } },
-    { new: true }
-  )
+  PostModel.findByIdAndUpdate(postId, { $inc: { upvotes: 1 } }, { new: true })
     .then((updatedPost) => {
       if (!updatedPost) {
         return res.status(404).json({ error: "Post not found" });
@@ -129,11 +120,7 @@ postController.upvotePost = (req, res) => {
 postController.downvotePost = (req, res) => {
   const postId = req.params.id;
 
-  PostModel.findByIdAndUpdate(
-    postId,
-    { $inc: { downvotes: 1 } },
-    { new: true }
-  )
+  PostModel.findByIdAndUpdate(postId, { $inc: { downvotes: 1 } }, { new: true })
     .then((updatedPost) => {
       if (!updatedPost) {
         return res.status(404).json({ error: "Post not found" });
@@ -163,7 +150,5 @@ postController.searchPostsByTags = (req, res) => {
       res.status(500).json({ error: "Internal server error" });
     });
 };
-
-
 
 module.exports = postController;

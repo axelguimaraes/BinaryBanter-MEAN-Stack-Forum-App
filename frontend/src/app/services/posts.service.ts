@@ -12,7 +12,7 @@ export class PostsService {
 
   getPosts(): Observable<any> {
     const url = `${this.API_URL}`;
-    return this.http.get<any>(url, { withCredentials: true }); // Include 'withCredentials' to send cookies
+    return this.http.get<any>(url, { withCredentials: true });
   }
 
   createPost(postData: any): Observable<any> {
@@ -25,7 +25,7 @@ export class PostsService {
 
   updatePost(postId: string, postData: any): Observable<any> {
     const url = `${this.API_URL}/${postId}`;
-    return this.http.put<any>(url, postData, { withCredentials: true }); // Include 'withCredentials' to send cookies
+    return this.http.put<any>(url, postData, { withCredentials: true });
   }
 
   upvotePost(postId: string): Observable<any> {
@@ -40,12 +40,12 @@ export class PostsService {
 
   deletePost(postId: string): Observable<any> {
     const url = `${this.API_URL}/${postId}`;
-    return this.http.delete<any>(url, { withCredentials: true }); // Include 'withCredentials' to send cookies
+    return this.http.delete<any>(url, { withCredentials: true });
   }
 
   searchPostsByTags(tags: string[]): Observable<any> {
     const url = `${this.API_URL}/searchByTags`;
-    const params = new HttpParams().set('tags', tags.join(',')); // Join the tags array with comma separator
+    const params = new HttpParams().set('tags', tags.join(','));
     return this.http.get<any>(url, { params, withCredentials: true });
   }
 

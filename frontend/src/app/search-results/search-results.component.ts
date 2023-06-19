@@ -1,5 +1,4 @@
-import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component } from '@angular/core';
 import { Post } from '../models/post.model';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -21,7 +20,7 @@ export class SearchResultsComponent {
   }
 
   goBack() {
-    this.router.navigate(['../']); // Navigate to the previous page
+    this.router.navigate(['../']);
   }
 
   goToThread(threadId: string) {

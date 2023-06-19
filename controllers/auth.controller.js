@@ -43,8 +43,6 @@ authController.register = (req, res) => {
     });
 };
 
-
-
 // User login and generate JWT token
 authController.login = (req, res) => {
   const { email, password } = req.body;
@@ -70,7 +68,6 @@ authController.login = (req, res) => {
           { expiresIn: "1h" }
         );
 
-        // Save auth model in the database
         const auth = new AuthModel({
           user: user._id,
           token: token,
@@ -84,8 +81,8 @@ authController.login = (req, res) => {
               maxAge: 3600000,
               httpOnly: true,
             });
-            
-            res.status(200).json({ token, username: user.username }); // Include the username in the response
+
+            res.status(200).json({ token, username: user.username });
           })
           .catch((error) => {
             res.status(500).json({ error: "Internal server error" });
@@ -97,10 +94,9 @@ authController.login = (req, res) => {
     });
 };
 
-
 // Check if user is authenticated
 authController.isAuthenticated = (req, res, next) => {
-  const token = req.cookies["auth-token"]; // Access 'auth-token' cookie
+  const token = req.cookies["auth-token"];
 
   if (!token) {
     return res.status(401).json({ error: "Invalid token" });
@@ -133,7 +129,7 @@ authController.isAuthenticated = (req, res, next) => {
 
 // User logout and revoke JWT token
 authController.logout = (req, res) => {
-  const token = req.cookies["auth-token"]; // Access 'auth-token' cookie
+  const token = req.cookies["auth-token"];
 
   if (!token) {
     return res.status(404).json({ error: "Token not found" });
@@ -144,7 +140,7 @@ authController.logout = (req, res) => {
       if (!deletedToken) {
         return res.status(404).json({ error: "Token not found" });
       }
-      res.clearCookie("auth-token"); // Clear the 'auth-token' cookie
+      res.clearCookie("auth-token");
       res.status(200).json({ message: "Logout successful" });
     })
     .catch((error) => {

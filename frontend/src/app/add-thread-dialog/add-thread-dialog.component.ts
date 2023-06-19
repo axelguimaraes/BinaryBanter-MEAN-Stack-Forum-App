@@ -53,16 +53,13 @@ export class AddThreadDialogComponent implements OnInit {
 
     this.threadService.createThread(threadData).pipe(
       tap((response: any) => {
-        // Thread created successfully
         console.log('Thread created:', response);
         this.threadService.emitThreadCreated();
         this.dialogRef.close();
       }),
       catchError((error: any) => {
-        // Error occurred while creating thread
         console.error('Thread creation error:', error);
-        // Handle the error and display an appropriate message to the user
-        return of(null); // Return an observable with a null value to continue the observable chain
+        return of(null);
       })
     ).subscribe();
   }

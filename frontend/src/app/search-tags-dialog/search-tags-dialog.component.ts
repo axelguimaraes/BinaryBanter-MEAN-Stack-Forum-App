@@ -4,20 +4,15 @@ import { Observable } from 'rxjs';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { map, startWith } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatChipInputEvent, MatChipsModule } from '@angular/material/chips';
+import { MatChipInputEvent } from '@angular/material/chips';
 import {
   MatAutocompleteSelectedEvent,
-  MatAutocompleteModule,
 } from '@angular/material/autocomplete';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { AuthService } from '../services/auth.service';
 import { PostsService } from '../services/posts.service';
-import { ThreadService } from '../services/thread.service';
 import { MatDialogRef } from '@angular/material/dialog';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { inject } from '@angular/core';
 import { ElementRef } from '@angular/core';
-import { ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Post } from '../models/post.model';
 
@@ -112,12 +107,10 @@ export class SearchTagsDialogComponent implements OnInit {
     );
     this.postService.searchPostsByTags(selectedTags).subscribe(
       (result) => {
-        // Handle the search result
         this.dialogRef.close(result)
 
       },
       (error) => {
-        // Handle the error
         console.error(error);
         this.showSnackbar('No posts found with the selected tags!')
       }

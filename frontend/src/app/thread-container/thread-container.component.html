@@ -1,4 +1,5 @@
 <div class="thread-container">
+  <button mat-button color="accent" class="search-tags-button" (click)="openSearchByTagsDialog()">Search by Tags</button>
   <mat-card *ngFor="let thread of threads" class="thread-card spacer">
     <mat-card-header>
       <div class="thread-title-author">

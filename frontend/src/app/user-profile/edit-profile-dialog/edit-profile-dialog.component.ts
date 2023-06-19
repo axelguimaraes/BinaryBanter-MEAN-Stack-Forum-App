@@ -30,15 +30,10 @@ export class EditProfileDialogComponent implements OnInit {
   }
 
   submit(): void {
-    // Handle the form submission and update the user profile
     const updatedProfile = {
       username: this.editProfileForm.value.username,
       email: this.editProfileForm.value.email,
-      // Add other fields if needed
     };
-
-    // Call the relevant service method to update the user profile
-
     this.dialogRef.close(updatedProfile);
   }
 }

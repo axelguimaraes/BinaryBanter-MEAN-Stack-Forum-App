@@ -29,7 +29,7 @@ export class AppComponent implements OnInit {
     private appService: AppService,
     private router: Router,
     private route: ActivatedRoute,
-    private snackBar: MatSnackBar,
+    private snackBar: MatSnackBar
   ) {
     this.checkedLoggedInStatus();
     const storedUsername = localStorage.getItem('username');
@@ -91,7 +91,6 @@ export class AppComponent implements OnInit {
   logout() {
     this.authService.logout().subscribe(
       () => {
-        // Remove the token from the cookie
         document.cookie =
           'auth-token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
         localStorage.removeItem('authToken');
@@ -120,28 +119,15 @@ export class AppComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log('The dialog was closed with: ', result);
-    })
-  }
-
-  openSearchByTagsDialog(): void {
-    const dialogRef = this.dialog.open(SearchTagsDialogComponent, {
-      width: '400px',
-    });
-
-    dialogRef.afterClosed().subscribe((result: Post[]) => {
-      if (result) {
-        this.router.navigate(['/searchResults'], { state: { posts: result } });
-      }
     });
   }
-
 
   goToProfile() {
     this.router.navigate(['/user', this.userId]);
   }
 
   goHome() {
-    this.router.navigate(['/'])
+    this.router.navigate(['/']);
   }
 
   showSnackbar(message: string) {

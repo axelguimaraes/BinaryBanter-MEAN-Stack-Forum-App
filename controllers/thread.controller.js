@@ -101,7 +101,6 @@ threadsController.deletePostFromThread = (req, res) => {
   const { postId } = req.body;
   console.log("Deleting", postId + ", in thread:", threadId);
   
-  // Find and delete the specified post within this thread's array of posts
   ThreadModel.findByIdAndUpdate(
     threadId,
     { $pull: { posts: postId } },
@@ -122,7 +121,6 @@ threadsController.deletePostFromThread = (req, res) => {
 threadsController.deleteThreadById = (req, res) => {
   const { threadId } = req.params;
 
-  // Retrieve the posts associated with the thread
   ThreadModel.findById(threadId)
     .populate('posts')
     .exec((err, thread) => {
@@ -133,7 +131,6 @@ threadsController.deleteThreadById = (req, res) => {
         return res.status(404).json({ error: "Thread not found" });
       }
 
-      // Delete the associated posts
       PostModel.deleteMany({ _id: { $in: thread.posts } })
         .then(() => {
           // Delete the thread
