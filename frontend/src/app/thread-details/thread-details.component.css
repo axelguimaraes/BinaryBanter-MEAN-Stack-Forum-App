@@ -1,0 +1,113 @@
+.thread-details {
+  margin: 16px 120px;
+  background-color: #c9c9c9;
+}
+
+.thread-card-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.thread-author {
+  font-size: 0.8rem;
+  color: rgba(0, 0, 0, 0.54);
+  margin-left: 10px;
+}
+
+.back-button-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+  margin-top: 16px;
+  margin-left: 120px;
+}
+
+.go-back-text {
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.54);
+}
+
+.button-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+  margin-top: 16px;
+  margin-left: 120px;
+}
+
+.back-button {
+  margin-right: 8px;
+}
+
+.add-post-button {
+  margin-left: auto;
+  margin-right: 120px;
+}
+
+.delete-thread-button {
+  margin-left: auto;
+}
+
+.no-posts-card {
+  margin: 16px 120px;
+}
+
+.post-card {
+  margin: 16px 120px;
+}
+
+.post-author {
+  font-size: 0.8rem;
+  color: rgba(0, 0, 0, 0.54);
+  margin-left: 10px;
+}
+
+.posts-sentence {
+  margin-left: 120px;
+  margin-top: 32px;
+  font-size: 20px;
+}
+
+.post-card-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.post-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.vote-icons {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.post-vote-count {
+  display: inline-block;
+  font-size: 14px;
+}
+
+
+.post-card-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.post-content {
+  width: 100%;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+}
+
+.scroll-top-button {
+  position: fixed;
+  bottom: 64px;
+  right: 16px;
+  z-index: 4;
+}

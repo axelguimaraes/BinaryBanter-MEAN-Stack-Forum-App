@@ -1,0 +1,13 @@
+<h2 mat-dialog-title>Edit Thread</h2>
+<mat-dialog-content>
+  <form [formGroup]="editThreadForm">
+    <mat-form-field class="description-field">
+      <mat-label>Description</mat-label>
+      <input matInput formControlName="description" placeholder="Description" required>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end" class="buttons">
+  <button mat-button mat-dialog-close color="primary">Cancel</button>
+  <button mat-raised-button color="accent" (click)="submit()">Submit</button>
+</mat-dialog-actions>

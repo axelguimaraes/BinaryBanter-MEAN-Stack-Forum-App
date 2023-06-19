@@ -1,0 +1,28 @@
+<div class="back-button-container">
+  <button mat-icon-button color="primary" (click)="goBack()" class="back-button">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+  <span class="go-back-text">Go back</span>
+</div>
+
+<mat-card class="profile-card">
+  <mat-card-header class="profile-header">
+    <mat-card-title>User Profile</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content class="profile-content">
+    <div *ngIf="user$ | async as user">
+      <p><strong>Name:</strong> {{ user.username }}</p>
+      <p><strong>Email:</strong> {{ user.email }}</p>
+      <p><strong>Joined At:</strong> {{ user.createdAt | date }}</p>
+    </div>
+  </mat-card-content>
+
+  <mat-card-actions class="buttons">
+    <div class="edit-buttons">
+      <button mat-raised-button color="primary" (click)="editProfile()">Edit Profile</button>
+      <button mat-button color="primary" (click)="changePassword()">Change Password</button>
+    </div>
+    <button mat-raised-button color="warn" (click)="deleteProfile()">Delete Profile</button>
+  </mat-card-actions>
+</mat-card>

@@ -1,0 +1,65 @@
+.thread-container {
+  margin: 16px 120px;
+}
+
+.no-threads-message {
+  margin-top: 16px;
+  margin-bottom: 16px;
+  margin-left: 16px;
+}
+
+.spacer {
+  margin: 16px;
+}
+
+.thread-meta {
+  display: flex;
+  align-items: center;
+  margin: 16px;
+}
+
+.thread-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.thread-author {
+  font-size: 0.8rem;
+  color: rgba(0, 0, 0, 0.54);
+  margin-left: 10px;
+}
+
+.thread-title-author {
+  display: flex;
+  align-items: center;
+}
+
+.thread-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.thread-meta-icon {
+  margin-right: 5px;
+}
+
+.scroll-top-button {
+  position: fixed;
+  bottom: 64px;
+  right: 16px;
+  z-index: 4;
+}
+
+.post-count-label {
+  margin-left: 5px;
+}
+
+.search-tags-button {
+  margin-left: 16px;
+}
+
+.no-threads-card {
+  margin-left: 16px;
+}

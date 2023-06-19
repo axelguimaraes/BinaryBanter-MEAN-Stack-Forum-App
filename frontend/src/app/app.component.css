@@ -1,0 +1,56 @@
+.mat-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.left-section {
+  display: flex;
+  align-items: center;
+}
+
+.title {
+  margin-right: 10px;
+}
+
+.right-section {
+  display: flex;
+  align-items: center;
+}
+
+.welcome-container {
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+}
+
+.greeting {
+  margin-bottom: 0;
+  margin-right: 10px;
+}
+
+.add-thread-button-container {
+  margin: 16px 120px;
+}
+
+.add-thread-button {
+  margin-left: 16px;
+}
+
+.logo-img {
+  height: 40px;
+  width: auto;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.search-tags-button {
+  margin-left: 16px;
+}

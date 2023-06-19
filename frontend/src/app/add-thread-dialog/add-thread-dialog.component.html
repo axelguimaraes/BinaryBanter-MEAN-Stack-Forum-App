@@ -1,0 +1,19 @@
+<h2 class="dialog-title">Add Thread</h2>
+<mat-dialog-content>
+  <form [formGroup]="threadForm" (ngSubmit)="onSubmit()" class="dialog-form">
+    <mat-form-field class="name-text-field">
+      <input matInput placeholder="Name" formControlName="name">
+      <mat-error *ngIf="threadForm.controls['name'].hasError('required')">Name is required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="description-text-field">
+      <input matInput placeholder="Description" formControlName="description">
+      <mat-error *ngIf="threadForm.controls['description'].hasError('required')">Description is required</mat-error>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end" class="buttons">
+  <button mat-button color="warn" (click)="onCancel()">Cancel</button>
+  <button mat-raised-button color="primary" type="submit" [disabled]="threadForm.invalid" (click)="onSubmit()">Submit</button>
+</mat-dialog-actions>

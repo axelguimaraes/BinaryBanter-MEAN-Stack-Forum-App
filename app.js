@@ -3,11 +3,15 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var cors = require('cors')
 
-var indexRouter = require('./routes/index');
-var authRouter = require('./routes/auth');
-var usersRouter = require('./routes/user');
-var patrimoniesRouter = require("./routes/patrimony")
+// ROUTES
+var indexRouter = require('./routes/index.routes')
+var authRouter = require('./routes/auth.routes')
+var postRouter = require('./routes/post.routes')
+var threadRouter = require('./routes/thread.routes')
+var userRouter = require('./routes/user.routes')
+var indexRouter = require('./routes/index.routes')
 
 var app = express();
 
@@ -20,13 +24,23 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(cors({ origin: 'http://localhost:4200', credentials: true }));
+app.use(express.static('public'));
 
 // ROUTES
-app.use('/', indexRouter);
-app.use('/auth', authRouter);
-app.use('/users', usersRouter);
-app.use("/patrimonies", patrimoniesRouter)
+app.use('/api', indexRouter);
+app.use('/api/auth', authRouter);
+app.use('/api/post', postRouter);
+app.use('/api/thread', threadRouter)
+app.use('/api/user', userRouter)
+app.use('/api', indexRouter)
 
+
+// Logo
+app.get('/api/logo', (req, res) => {
+  const logoImageUrl = '/images/BinaryBanter.png'
+  res.json({logoImageUrl})
+})
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

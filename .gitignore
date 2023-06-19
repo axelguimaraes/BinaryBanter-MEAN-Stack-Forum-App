@@ -12,6 +12,7 @@ mongodb.conf
 .nodemonignore
 .sass-cache/
 node_modules/
+frontend/node_modules/
 public/lib/
 app/tests/coverage/
 .bower-*/
@@ -50,6 +51,11 @@ mongodb.conf
 *.ntvs*
 *.njsproj
 *.sln
+*.vscode
 
 # Courtesy of https://github.com/meanjs/mean/blob/master/.gitignore
 __temp__ca.pem
+
+# Angular
+*.angular
+/dist/
