@@ -61,7 +61,7 @@ app.use(function(err, req, res, next) {
 // Database connection
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb+srv://admin:tr3XLIkpeYUyv1Vt@cluster0.qrcemhx.mongodb.net/?retryWrites=true&w=majority')
+mongoose.connect('mongodb://127.0.0.1:27017/binarybanter')
 .then(() => console.log('Database connected!'))
 .catch(err => console.error('Error connecting to database:', err));
 
